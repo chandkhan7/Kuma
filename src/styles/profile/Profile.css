@@ -23,8 +23,8 @@
   align-items: center;
   padding-bottom: 40px;
   border-bottom: 1px solid var(--border-color);
-  gap: 15px; /* Add gap between profile image and info */
-  position: relative; /* Enable positioning for the username */
+  gap: 15px;
+  position: relative;
 }
 
 @media (max-width: 720px) {
@@ -38,23 +38,21 @@
 
 /* Username Positioning */
 .profile-header h2 {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 600;
   margin-bottom: 8px;
   color: var(--light-color);
   position: absolute;
-  top: -20px;
-  right: -10px;
-  font-size: 18px;
+  top: -39px;
+  right: -32px;
 }
-
+/* Profile Info */
 .profile-info {
   flex: 1;
-  text-align: center; /* Center-align text on mobile */
+  text-align: center;
 }
 
 @media (min-width: 721px) {
-  /* Left-align profile info on larger screens */
   .profile-info {
     text-align: left;
   }
@@ -76,7 +74,6 @@
 }
 
 @media (min-width: 721px) {
-  /* Align stats horizontally for larger screens */
   .profile-stats {
     justify-content: flex-start;
   }
@@ -93,40 +90,25 @@
   font-weight: 700;
 }
 
-/* Button to edit profile */
-.edit-profile-btn {
-  margin-top: 12px;
-  padding: 8px 20px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%; /* Full-width on mobile */
-  max-width: 180px;
-  margin: 12px auto; /* Center button on mobile */
-}
+.edit-profile-btn { background-color: #bd1010; color: white; padding: 10px 2px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; width: 50%; max-width: 500px; margin-top: 20px; transition: background-color 0.3s ease, transform 0.2s ease; }
 
 .edit-profile-btn:hover {
   background-color: var(--primary-hover-color);
 }
 
-/* Profile Edit Form Container */
+/* Profile Edit Form */
 .profile-info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px;
   background-color: #181818;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px;
   margin: 20px auto;
-  margin-right: 900px;
 }
-/* Title for the Edit Profile Section */
+
 .profile-info h3 {
   color: #fff;
   font-size: 1.5rem;
@@ -134,28 +116,8 @@
   text-align: center;
 }
 
-/* Profile Info Input Fields */
-.profile-info .input-field {
-  width: 100%;
-  max-width: 500px;  /* Limit max width for large screens */
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: 1px solid #555;
-  background-color: #444;  /* Dark background for input fields */
-  color: #fff;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-/* Focused input fields */
-.profile-info .input-field:focus {
-  outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
-}
-
-/* Textarea Styling */
+/* Input Fields */
+.profile-info .input-field,
 textarea {
   width: 100%;
   max-width: 500px;
@@ -166,19 +128,23 @@ textarea {
   background-color: #444;
   color: #fff;
   font-size: 16px;
-  resize: vertical;
-  min-height: 100px;
   transition: all 0.3s ease;
 }
 
-/* Focused Textarea */
+.profile-info .input-field:focus,
 textarea:focus {
   outline: none;
   border-color: #4CAF50;
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
 }
 
-/* Save Button Styling */
+/* Textarea Styling */
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Save Button */
 .save-btn {
   background-color: #4CAF50;
   color: white;
@@ -193,7 +159,6 @@ textarea:focus {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Hover and Active state for Save button */
 .save-btn:hover {
   background-color: #45a049;
   transform: translateY(-2px);
@@ -203,53 +168,9 @@ textarea:focus {
   transform: translateY(1px);
 }
 
-/* Edit Profile Button Styling */
-.edit-profile-btn {
-  background-color: #bd1010;
-  color: white;
-  padding: 10px 2px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 50%;
-  max-width: 500px;
-  margin-top: 20px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-/* Hover and Active state for Edit Profile button */
-.edit-profile-btn:hover {
-  background-color: #bd1010b9;
-  transform: translateY(-2px);
-}
-
-.edit-profile-btn:active {
-  transform: translateY(1px);
-}
-
-/* Profile Image Edit Section */
-.profile-picture {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #333530; /* Green border for profile image */
-  margin-top: 10px;
-  margin-bottom: -30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-/* Hover effect for profile image */
-.profile-picture:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
-}
-
-/* Styling for 'Cancel Edit' or 'Back to Profile' Button */
+/* Cancel Button */
 .cancel-edit-btn {
-  background-color: #f44336;  /* Red background for cancel button */
+  background-color: #f44336;
   color: white;
   padding: 12px 24px;
   border: none;
@@ -262,7 +183,6 @@ textarea:focus {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Hover and Active state for Cancel button */
 .cancel-edit-btn:hover {
   background-color: #d32f2f;
   transform: translateY(-2px);
@@ -272,30 +192,36 @@ textarea:focus {
   transform: translateY(1px);
 }
 
-/* Profile Picture Container */
-.profile-picture-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
+/* Profile Picture */
 .profile-picture {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #47303031;
+  border: 4px solid #333530;
+  margin-top: 10px;
+  margin-bottom: -30px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-/* Style for the name wrapped around profile picture */
+.profile-picture:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+/* Profile Picture Container */
+.profile-picture-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
 .profile-name {
   position: absolute;
-  top: 164px; /* Position at the middle */
+  top: 172px;
   left: 63px;
-  transform: translate(-50%, -80%) rotate(0deg); /* Adjust rotation and position */
+  transform: translate(-50%, -80%);
   font-size: 18px;
   color: #FFF;
   text-align: center;
@@ -303,6 +229,8 @@ textarea:focus {
   width: 150%;
   font-weight: 900;
 }
+
+/* Relationship Button */
 .relationship-btn {
   margin-top: 12px;
   padding: 8px 20px;
@@ -316,11 +244,11 @@ textarea:focus {
 }
 
 .relationship-btn.single {
-  background-color: #db125f; /* Red for single status */
+  background-color: #db125f;
 }
 
 .relationship-btn.in-relationship {
-  background-color: #e91e63; /* Pink for in-relationship */
+  background-color: #e91e63;
 }
 
 .relationship-btn:hover {
@@ -374,16 +302,37 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-.relationship-status {
+/* Relationship and Happy Status */
+.relationship-status,
+.happy-status {
   font-weight: 900;
   font-size: 14px;
   margin-top: 8px;
   color: var(--light-color);
 }
 
-.happy-status{
-  font-weight: 900;
-  font-size: 14px;
-  margin-top: 8px;
-  color: var(--light-color);
+/* Add Shadow Profile Picture Button (Plus Icon) */
+.add-picture-btn {
+  position: absolute;
+  bottom: -10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  font-size: 24px;
+  color: #fff;
+  background-color: #bd1010;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
 }
+
+.add-picture-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7);
+}
+
