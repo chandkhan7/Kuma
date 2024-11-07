@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaRegNewspaper, FaHeart, FaComment, FaShareAlt } from 'react-icons/fa';
+import { FaRegNewspaper, FaHeart, FaComment, FaShareAlt, FaPlus } from 'react-icons/fa';
 import profileImage from '../../assets/mark.jpg';
 import '../../styles/profile/Profile.css';
 
@@ -17,7 +17,8 @@ const ProfileHeader = ({ user }) => {
     { id: 2, imageUrl: "https://i0.wp.com/www.sciencenews.org/wp-content/uploads/2023/06/062623_CG_Megalodon_feat.jpg?fit=1030%2C580&ssl=1", likes: 150, comments: 30, shares: 5 },
     { id: 3, imageUrl: "https://www.economist.com/cdn-cgi/image/width=1424,quality=80,format=auto/content-assets/images/20230923_CUP002.jpg", likes: 350, comments: 80, shares: 20 }
   ]);
-  const [selectedPost, setSelectedPost] = useState(null); // New state for selected post
+  const [postCount, setPostCount] = useState(posts.length);
+  const [selectedPost, setSelectedPost] = useState(null);
   const fileInputRef = useRef(null);
   const shadowFileInputRef = useRef(null);
 
@@ -102,11 +103,23 @@ const ProfileHeader = ({ user }) => {
 
   const handlePostClick = (postId) => {
     const post = posts.find(p => p.id === postId);
-    setSelectedPost(post);  // Open the modal with selected post
+    setSelectedPost(post);
   };
 
   const handleClosePostDetail = () => {
-    setSelectedPost(null); // Close the modal
+    setSelectedPost(null);
+  };
+
+  const addNewPost = () => {
+    const newPost = {
+      id: posts.length + 1,
+      imageUrl: "https://via.placeholder.com/300",
+      likes: 0,
+      comments: 0,
+      shares: 0,
+    };
+    setPosts([...posts, newPost]);
+    setPostCount(postCount + 1);
   };
 
   return (
@@ -190,7 +203,7 @@ const ProfileHeader = ({ user }) => {
               <p className="bio">{bio}</p>
               <div className="profile-stats">
                 <div>
-                  <strong>{user.posts.length}</strong> posts
+                  <strong>{postCount}</strong> posts
                 </div>
                 <div>
                   <strong>{user.followers}</strong> followers
@@ -201,6 +214,9 @@ const ProfileHeader = ({ user }) => {
               </div>
               <button onClick={() => setIsEditing(!isEditing)} className="edit-profile-btn">
                 {isEditing ? 'Cancel Edit' : 'Edit Profile'}
+              </button>
+              <button onClick={addNewPost} className="add-post-btn">
+                <FaPlus />
               </button>
 
               <label className="switch">
@@ -231,7 +247,7 @@ const ProfileHeader = ({ user }) => {
 
           <div className="posts-header">
             <FaRegNewspaper className="icon-post" size={30} color="white" />
-            <span className="posts-title">MY POSTS</span>
+            <span className="posts-title">MY POSTS            </span>
           </div>
 
           <div className="profile-posts">
@@ -281,6 +297,7 @@ const ProfileHeader = ({ user }) => {
         <div className="post-detail-modal" onClick={handleClosePostDetail}>
           <div className="post-detail-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-btn" onClick={handleClosePostDetail}>X</button>
+            
             <img src={selectedPost.imageUrl} alt="Selected Post" className="post-detail-image" />
             <div className="post-detail-stats">
               <p>{selectedPost.likes} Likes</p>
@@ -295,3 +312,4 @@ const ProfileHeader = ({ user }) => {
 };
 
 export default ProfileHeader;
+
