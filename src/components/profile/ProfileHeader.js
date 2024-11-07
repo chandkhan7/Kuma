@@ -8,6 +8,8 @@ const ProfileHeader = ({ user }) => {
   const [bio, setBio] = useState(user.bio);
   const [profilePic, setProfilePic] = useState(profileImage);
   const [name, setName] = useState(user.name || ""); // New state for name
+  const [isInRelationship, setIsInRelationship] = useState(user.relationshipStatus || false); // Relationship status state
+  const [isHappy, setIsHappy] = useState(user.happyStatus || false); // Happy or Sad state
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -17,12 +19,14 @@ const ProfileHeader = ({ user }) => {
       setBio(savedProfileData.bio || user.bio);
       setProfilePic(savedProfileData.profilePic || profileImage);
       setName(savedProfileData.name || user.name);
+      setIsInRelationship(savedProfileData.relationshipStatus || user.relationshipStatus || false);
+      setIsHappy(savedProfileData.happyStatus || user.happyStatus || false);
     }
-  }, [user.username, user.bio, user.name, profileImage]);
+  }, [user.username, user.bio, user.name, profileImage, user.relationshipStatus, user.happyStatus]);
 
   const handleProfileUpdate = (e) => {
     e.preventDefault();
-    const updatedProfile = { username, bio, profilePic, name };
+    const updatedProfile = { username, bio, profilePic, name, relationshipStatus: isInRelationship, happyStatus: isHappy };
     localStorage.setItem('profileData', JSON.stringify(updatedProfile));
     setIsEditing(false);
   };
@@ -36,9 +40,21 @@ const ProfileHeader = ({ user }) => {
     if (file) {
       const newProfilePic = URL.createObjectURL(file);
       setProfilePic(newProfilePic);
-      const updatedProfile = { username, bio, profilePic: newProfilePic, name };
+      const updatedProfile = { username, bio, profilePic: newProfilePic, name, relationshipStatus: isInRelationship, happyStatus: isHappy };
       localStorage.setItem('profileData', JSON.stringify(updatedProfile));
     }
+  };
+
+  const toggleRelationshipStatus = () => {
+    setIsInRelationship(!isInRelationship);
+    const updatedProfile = { username, bio, profilePic, name, relationshipStatus: !isInRelationship, happyStatus: isHappy };
+    localStorage.setItem('profileData', JSON.stringify(updatedProfile));
+  };
+
+  const toggleHappyStatus = () => {
+    setIsHappy(!isHappy);
+    const updatedProfile = { username, bio, profilePic, name, relationshipStatus: isInRelationship, happyStatus: !isHappy };
+    localStorage.setItem('profileData', JSON.stringify(updatedProfile));
   };
 
   return (
@@ -105,6 +121,32 @@ const ProfileHeader = ({ user }) => {
             <button onClick={() => setIsEditing(!isEditing)} className="edit-profile-btn">
               {isEditing ? 'Cancel' : 'Edit Profile'}
             </button>
+
+            {/* Relationship Status Toggle */}
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={isInRelationship}
+                onChange={toggleRelationshipStatus}
+              />
+              <span className="slider round"></span>
+            </label>
+            <p className="relationship-status">
+              {isInRelationship ? 'In a Relationship' : 'Single'}
+            </p>
+
+            {/* Happy/Sad Toggle */}
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={isHappy}
+                onChange={toggleHappyStatus}
+              />
+              <span className="slider round"></span>
+            </label>
+            <p className="happy-status">
+              {isHappy ? 'Happy' : 'Sad'}
+            </p>
           </>
         )}
       </div>
