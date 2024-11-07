@@ -45,6 +45,18 @@ const ProfileHeader = ({ user }) => {
     setIsEditing(false);
   };
 
+  // Cancel editing and revert to original data
+  const handleCancelEdit = () => {
+    setUsername(user.username);
+    setBio(user.bio);
+    setProfilePic(user.profilePic || profileImage);
+    setName(user.name || "User's Name");
+    setIsInRelationship(user.relationshipStatus || false);
+    setIsHappy(user.happyStatus || false);
+    setShadowPic(user.shadowPic || '');
+    setIsEditing(false); // Close the edit mode without saving changes
+  };
+
   // Toggle profile picture between default and uploaded image
   const handleProfilePicClick = () => {
     setProfilePic(prevPic => prevPic === profileImage ? profilePic : profileImage); // Toggle the profile picture for flipping
@@ -56,8 +68,6 @@ const ProfileHeader = ({ user }) => {
     if (file) {
       const newProfilePic = URL.createObjectURL(file);
       setProfilePic(newProfilePic);
-      const updatedProfile = { username, bio, profilePic: newProfilePic, name, relationshipStatus: isInRelationship, happyStatus: isHappy, shadowPic };
-      localStorage.setItem('profileData', JSON.stringify(updatedProfile));
     }
   };
 
@@ -67,23 +77,17 @@ const ProfileHeader = ({ user }) => {
     if (file) {
       const newShadowPic = URL.createObjectURL(file);
       setShadowPic(newShadowPic);
-      const updatedProfile = { username, bio, profilePic, name, relationshipStatus: isInRelationship, happyStatus: isHappy, shadowPic: newShadowPic };
-      localStorage.setItem('profileData', JSON.stringify(updatedProfile));
     }
   };
 
   // Toggle relationship status
   const toggleRelationshipStatus = () => {
     setIsInRelationship(!isInRelationship);
-    const updatedProfile = { username, bio, profilePic, name, relationshipStatus: !isInRelationship, happyStatus: isHappy, shadowPic };
-    localStorage.setItem('profileData', JSON.stringify(updatedProfile));
   };
 
   // Toggle happy status
   const toggleHappyStatus = () => {
     setIsHappy(!isHappy);
-    const updatedProfile = { username, bio, profilePic, name, relationshipStatus: isInRelationship, happyStatus: !isHappy, shadowPic };
-    localStorage.setItem('profileData', JSON.stringify(updatedProfile));
   };
 
   return (
@@ -162,6 +166,13 @@ const ProfileHeader = ({ user }) => {
                 placeholder="Edit bio"
               />
               <button type="submit" className="save-btn">Save</button>
+              <button 
+                type="button"
+                className="cancel-btn"
+                onClick={handleCancelEdit}
+              >
+                Cancel
+              </button>
             </form>
           ) : (
             <>
@@ -179,7 +190,7 @@ const ProfileHeader = ({ user }) => {
                 </div>
               </div>
               <button onClick={() => setIsEditing(!isEditing)} className="edit-profile-btn">
-                {isEditing ? 'Cancel' : 'Edit Profile'}
+                {isEditing ? 'Cancel Edit' : 'Edit Profile'}
               </button>
 
               {/* Relationship Status Toggle */}

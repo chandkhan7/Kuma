@@ -89,11 +89,24 @@
   font-size: 18px;
   font-weight: 700;
 }
+.edit-profile-btn {
+  background-color: #bd1010;
+  color: white;
+  padding: 10px 2px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 50%;
+  max-width: 500px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-.edit-profile-btn { background-color: #bd1010; color: white; padding: 10px 2px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; width: 50%; max-width: 500px; margin-top: 20px; transition: background-color 0.3s ease, transform 0.2s ease; }
-
+/* Dull Red Color on Hover */
 .edit-profile-btn:hover {
-  background-color: var(--primary-hover-color);
+  background-color: #bd1010dc; /* Dull Red */
+  transform: translateY(-3px); /* Moves the button upwards on hover */
 }
 
 /* Profile Edit Form */
@@ -336,3 +349,36 @@ input:checked + .slider:before {
   box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7);
 }
 
+.save-btn {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-weight: 900;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+
+.cancel-btn:hover {
+  background-color: #bd1010c9;
+  transform: translateY(-2px);
+}
+
+.cancel-btn:active {
+  transform: translateY(1px);
+}
