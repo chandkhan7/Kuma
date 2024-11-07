@@ -1,0 +1,75 @@
+/* Profile Posts Grid */
+.profile-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Default layout for larger screens */
+  gap: 6px;
+  margin-top: 30px;
+  padding: 0 10px; /* Padding for centering on wider screens */
+}
+
+@media (max-width: 768px) {
+  /* Grid layout for tablets */
+  .profile-posts {
+    grid-template-columns: repeat(3, 1fr); /* Three posts per row */
+    gap: 10px;
+  }
+}
+
+@media (max-width: 720px) {
+  /* Grid layout for mobile phones */
+  .profile-posts {
+    grid-template-columns: repeat(3, 1fr); /* Three posts per row */
+    gap: 0; /* Remove gap to align with screen edges */
+    padding: 0; /* Remove padding to align with screen edges */
+  }
+}
+
+/* Styling individual post thumbnail */
+.post-thumbnail {
+  position: relative;
+  border-radius: 15px; /* Slightly larger curved corners */
+  overflow: hidden;
+  background-color: #222;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* Ensure full width in each cell */
+  aspect-ratio: 1 / 1; /* Ensure square posts */
+}
+
+.post-thumbnail:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Image inside each post thumbnail */
+.post-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px; /* Curved edges for the image */
+  transition: transform 0.3s ease;
+}
+
+.post-thumbnail img:hover {
+  transform: scale(1.02);
+}
+
+/* Adding subtle effects for the post details (like icons for likes/comments) */
+.post-thumbnail .post-details {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px 15px;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.post-thumbnail:hover .post-details {
+  opacity: 1;
+}
+
