@@ -1,36 +1,77 @@
-import React, { useState } from 'react';
-import profileImage from '../../assets/mark.jpg'; // Path to profile image in assets
-import '../../styles/profile/Profile.css'; // Path to Profile.css in the profile folder
-
-
+import React, { useState, useEffect, useRef } from 'react';
+import profileImage from '../../assets/mark.jpg';
+import '../../styles/profile/Profile.css';
 
 const ProfileHeader = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
   const [profilePic, setProfilePic] = useState(profileImage);
+  const [name, setName] = useState(user.name || ""); // New state for name
+  const fileInputRef = useRef(null);
 
-  // Handle profile update
+  useEffect(() => {
+    const savedProfileData = JSON.parse(localStorage.getItem('profileData'));
+    if (savedProfileData) {
+      setUsername(savedProfileData.username || user.username);
+      setBio(savedProfileData.bio || user.bio);
+      setProfilePic(savedProfileData.profilePic || profileImage);
+      setName(savedProfileData.name || user.name);
+    }
+  }, [user.username, user.bio, user.name, profileImage]);
+
   const handleProfileUpdate = (e) => {
     e.preventDefault();
-    // You can implement logic here to send the updated data to the server if needed.
-    alert('Profile updated successfully');
+    const updatedProfile = { username, bio, profilePic, name };
+    localStorage.setItem('profileData', JSON.stringify(updatedProfile));
     setIsEditing(false);
   };
 
-  // Toggle edit mode
-  const handleEditClick = () => {
-    setIsEditing(!isEditing);
+  const handleProfilePicClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const newProfilePic = URL.createObjectURL(file);
+      setProfilePic(newProfilePic);
+      const updatedProfile = { username, bio, profilePic: newProfilePic, name };
+      localStorage.setItem('profileData', JSON.stringify(updatedProfile));
+    }
   };
 
   return (
     <div className="profile-header">
       {/* Profile Picture with Circular Shape */}
-      <img src={profilePic} alt="Profile" className="profile-picture" />
+      <div className="profile-picture-container">
+        <img
+          src={profilePic}
+          alt="Profile"
+          className="profile-picture"
+          onClick={handleProfilePicClick}
+        />
+        <span className="profile-name">{name}</span> {/* Display name around the profile picture */}
+      </div>
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={handleProfilePicChange}
+        accept="image/*"
+      />
 
       <div className="profile-info">
         {isEditing ? (
           <form onSubmit={handleProfileUpdate}>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="input-field"
+              placeholder="Edit name"
+            />
             <input
               type="text"
               value={username}
@@ -43,16 +84,6 @@ const ProfileHeader = ({ user }) => {
               onChange={(e) => setBio(e.target.value)}
               className="input-field"
               placeholder="Edit bio"
-            />
-            <input
-              type="file"
-              onChange={(e) => {
-                const file = e.target.files[0];
-                if (file) {
-                  setProfilePic(URL.createObjectURL(file));
-                }
-              }}
-              className="input-field"
             />
             <button type="submit" className="save-btn">Save</button>
           </form>
@@ -71,7 +102,7 @@ const ProfileHeader = ({ user }) => {
                 <strong>{user.following}</strong> following
               </div>
             </div>
-            <button onClick={handleEditClick} className="edit-profile-btn">
+            <button onClick={() => setIsEditing(!isEditing)} className="edit-profile-btn">
               {isEditing ? 'Cancel' : 'Edit Profile'}
             </button>
           </>
