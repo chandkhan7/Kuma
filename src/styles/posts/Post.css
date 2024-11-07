@@ -1,118 +1,97 @@
-/* Profile Posts Grid */
-.profile-posts {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Default layout for larger screens */
-  gap: 6px;
-  margin-top: -10px;
-  padding: 0 10px; /* Padding for centering on wider screens */
-}
-
-@media (max-width: 768px) {
-  /* Grid layout for tablets */
-  .profile-posts {
-    grid-template-columns: repeat(3, 1fr); /* Three posts per row */
-    gap: 10px;
-  }
-}
-
-@media (max-width: 720px) {
-  /* Grid layout for mobile phones */
-  .profile-posts {
-    grid-template-columns: repeat(3, 1fr); /* Three posts per row */
-    gap: 0; /* Remove gap to align with screen edges */
-    padding: 0; /* Remove padding to align with screen edges */
-  }
-}
-
-/* Styling individual post thumbnail */
+/* General Post Thumbnail */
 .post-thumbnail {
+  margin-bottom: 20px;
   position: relative;
-  border-radius: 15px; /* Slightly larger curved corners */
-  overflow: hidden;
-  background-color: #222;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 100%; /* Ensure full width in each cell */
-  aspect-ratio: 1 / 1; /* Ensure square posts */
+  background-color: #333; /* Background for better contrast */
+  border-radius: 12px; /* Slightly rounded corners for the post container */
+  overflow: hidden; /* Prevents overflow from image */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for post */
+  transition: transform 0.3s ease-in-out; /* Animation for hover effect */
 }
 
 .post-thumbnail:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
-/* Image inside each post thumbnail */
-.post-thumbnail img {
+/* Post Image */
+.post-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 15px; /* Curved edges for the image */
-  transition: transform 0.3s ease;
+  height: auto;
+  display: block; /* Removes any space under the image */
 }
 
-.post-thumbnail img:hover {
-  transform: scale(1.02);
-}
-
-/* Adding subtle effects for the post details (like icons for likes/comments) */
-.post-thumbnail .post-details {
+/* Post Details (like, comment, share) Container */
+.post-details {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 8px 15px;
-  border-radius: 10px;
-  color: white;
-  font-size: 14px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.post-thumbnail:hover .post-details {
-  opacity: 1;
-}
-
-.profile {
-  background-color: #181818;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.profile-header h2 {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--light-color);
-}
-
-.profile-info {
-  margin-top: 10px;
-  
-}
-
-.profile-info textarea {
+  bottom: 0;
+  left: 0;
   width: 100%;
   padding: 12px;
-  margin: 10px 0;
-  border-radius: 8px;
-  background-color: #444;
-  color: #fff;
-  font-size: 16px;
-  min-height: 100px;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #444;
+  color: white;
+  font-size: 14px;
 }
 
-.save-btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
+/* Interaction Icons Container */
+.post-thumbnail .interactions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+/* Individual Interaction Icons */
+.post-thumbnail .interactions i {
+  color: #ccc;
   cursor: pointer;
+  font-size: 18px;
+}
+
+.post-thumbnail .interactions i:hover {
+  color: #fff; /* On hover, change color to white */
+  opacity: 0.8; /* Slight transparency on hover */
+}
+
+/* Adjust the icon's size for better accessibility */
+.icon-like, .icon-comment, .icon-share {
+  font-size: 18px;
+}
+
+/* Hover effect for icons */
+.icon-like:hover, .icon-comment:hover, .icon-share:hover {
+  opacity: 0.8;
+  transform: scale(1.1); /* Slightly enlarge icons on hover */
+}
+
+/* Responsive Adjustments for Smaller Screens */
+@media (max-width: 768px) {
+  .post-thumbnail {
+    margin-bottom: 16px;
+  }
+
+  .post-details {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .post-thumbnail .interactions {
+    gap: 8px;
+  }
+
+  .icon-like, .icon-comment, .icon-share {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-thumbnail .interactions {
+    gap: 6px;
+  }
+
+  .icon-like, .icon-comment, .icon-share {
+    font-size: 14px; /* Further reduce icon size on very small screens */
+  }
 }
