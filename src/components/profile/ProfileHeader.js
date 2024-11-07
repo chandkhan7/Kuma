@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FaRegNewspaper } from 'react-icons/fa';  // Import the post icon from react-icons
 import profileImage from '../../assets/mark.jpg';
 import '../../styles/profile/Profile.css';
 
@@ -220,6 +221,13 @@ const ProfileHeader = ({ user }) => {
               </p>
             </>
           )}
+
+          {/* Post Icon and "MY POSTS" Text */}
+          <div className="posts-header">
+            <FaRegNewspaper className="icon-post"size={30} color="white" />
+            <span className="posts-title">MY POST</span>
+          </div>
+
         </div>
       </div>
     </div>

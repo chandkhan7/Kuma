@@ -382,3 +382,27 @@ input:checked + .slider:before {
 .cancel-btn:active {
   transform: translateY(1px);
 }
+/* In Profile.css */
+
+/* Styling the posts header */
+.posts-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px; /* Adjust margin to create space between the header and the posts */
+}
+
+.posts-header .posts-title {
+  position: relative;
+  top: 20px;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white; /* Adjust color to match the theme */
+}
+
+.icon-post{
+  position: relative;
+  top: 20px;
+  margin-left: 10px;
+}
