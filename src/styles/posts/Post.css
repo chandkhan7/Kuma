@@ -73,3 +73,46 @@
   opacity: 1;
 }
 
+.profile {
+  background-color: #181818;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--light-color);
+}
+
+.profile-info {
+  margin-top: 20px;
+  
+}
+
+.profile-info textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background-color: #444;
+  color: #fff;
+  font-size: 16px;
+  min-height: 100px;
+}
+
+.save-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
