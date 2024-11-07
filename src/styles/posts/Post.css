@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Default layout for larger screens */
   gap: 6px;
-  margin-top: 30px;
+  margin-top: -10px;
   padding: 0 10px; /* Padding for centering on wider screens */
 }
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import profileImage from '../../assets/mark.jpg'; // Path to profile image in assets
 import '../../styles/profile/Profile.css'; // Path to Profile.css in the profile folder
 
+
+
 const ProfileHeader = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState(user.username);
