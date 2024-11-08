@@ -1,88 +1,111 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { FaPaperPlane, FaImage, FaMicrophone } from 'react-icons/fa'; // FontAwesome icons
 import { io } from 'socket.io-client';
-import '../../styles/chat/ChatSystem.css';
+import '../../styles/chat/ChatSystem.css'; // Make sure the CSS path is correct
 
-const socket = io('http://localhost:4000'); // Replace with your socket server URL
+const socket = io('http://localhost:3001'); // Socket URL
 
 const ChatSystem = ({ userId }) => {
-  const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [typing, setTyping] = useState(false);
+  const [newMessage, setNewMessage] = useState('');
+  const [file, setFile] = useState(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    // Listen for incoming messages
-    socket.on('receive_message', (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
+    socket.on('receive_message', (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
     });
+    socket.emit('get_messages'); // Get existing messages when the chat starts
 
-    // Listen for typing status
-    socket.on('typing', (user) => {
-      setTyping(`${user} is typing...`);
-    });
-
-    // Cleanup on component unmount
     return () => {
       socket.off('receive_message');
-      socket.off('typing');
     };
   }, []);
 
+  useEffect(() => {
+    // Scroll to the bottom when new message is received
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
+
   const handleSendMessage = () => {
-    if (message.trim()) {
-      const messageData = {
-        userId,
-        message,
-        timestamp: new Date().toLocaleTimeString(),
-      };
-      
-      // Emit the message to the server
+    if (newMessage.trim()) {
+      const messageData = { userId, message: newMessage, type: 'text' };
       socket.emit('send_message', messageData);
-      
-      // Add the message locally
       setMessages((prevMessages) => [...prevMessages, messageData]);
-      setMessage('');
+      setNewMessage('');
     }
   };
 
-  const handleTyping = (e) => {
-    setMessage(e.target.value);
+  const handleSendImage = (event) => {
+    const image = event.target.files[0];
+    if (image) {
+      const imageData = { userId, message: image, type: 'image' };
+      socket.emit('send_message', imageData);
+      setMessages((prevMessages) => [...prevMessages, imageData]);
+    }
+  };
 
-    if (e.target.value) {
-      socket.emit('typing', userId); // Emit typing event
+  const handleRecordAudio = () => {
+    if (!isRecording) {
+      setIsRecording(true);
+      // Implement audio recording functionality here
     } else {
-      socket.emit('stop_typing', userId); // Stop typing event
+      setIsRecording(false);
+      // Stop recording and send audio
     }
   };
 
   return (
     <div className="chat-container">
-      <div className="chat-header">
-        <h3>MOONCLOUD Chat</h3>
-      </div>
-      
+      <div className="chat-header">Chat</div>
+
       <div className="chat-box">
         {messages.map((msg, index) => (
-          <div key={index} className="message">
-            <div className="message-content">
-              <span className="message-user">{msg.userId}</span>: 
-              <span className="message-text">{msg.message}</span>
-            </div>
-            <span className="message-timestamp">{msg.timestamp}</span>
+          <div
+            key={index}
+            className={`message ${msg.type} ${msg.direction || 'incoming'}`}
+          >
+            {msg.type === 'text' ? (
+              <p>{msg.message}</p>
+            ) : msg.type === 'image' ? (
+              <img src={msg.message} alt="Image" className="message-image" />
+            ) : msg.type === 'audio' ? (
+              <audio controls>
+                <source src={msg.message} />
+              </audio>
+            ) : null}
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
 
-      {typing && <div className="typing-indicator">{typing}</div>}
-
       <div className="chat-input">
-        <input 
-          type="text" 
-          value={message}
-          onChange={handleTyping}
-          onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-          placeholder="Type a message..."
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          placeholder="Type a message"
         />
-        <button onClick={handleSendMessage}>Send</button>
+        <div className="message-icons">
+          <label htmlFor="image-upload">
+            <FaImage />
+            <input
+              type="file"
+              id="image-upload"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={handleSendImage}
+            />
+          </label>
+
+          <FaMicrophone onClick={handleRecordAudio} />
+        </div>
+        <button className="send-message" onClick={handleSendMessage}>
+          <FaPaperPlane />
+        </button>
       </div>
     </div>
   );
