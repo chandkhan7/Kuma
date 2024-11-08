@@ -1,0 +1,45 @@
+/* src/styles/home/Home.css */
+.home-container {
+  width: 100%;
+  padding: 20px;
+  background-color: #181818;
+  color: white;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.home-header h1 {
+  font-size: 36px;
+}
+
+.home-header p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.profile-button {
+  padding: 10px 20px;
+  background-color: #0078FF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.profile-button:hover {
+  background-color: #005bb5;
+}
+
+.home-content {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.home-content p {
+  font-size: 20px;
+}
