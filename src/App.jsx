@@ -1,57 +1,72 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Home from './components/home/Home'; // Home page component
-import Profile from './components/profile/Profile'; // Profile component
-import ChatSystem from './components/chat/ChatSystem'; // Chat system component
-import './styles/App.css'; // Global CSS
-import { FaFacebookMessenger } from 'react-icons/fa'; // Messenger Icon
+// src/App.jsx
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Home from './components/home/Home';
+import Profile from './components/profile/Profile';
+import { FaUserCircle, FaHome, FaPlusCircle } from 'react-icons/fa';
+import './styles/App.css';
 
 function App() {
-  const [isChatOpen, setIsChatOpen] = useState(false); // State to handle chat visibility
+  const [posts, setPosts] = useState([]);
 
-  // Handle opening/closing of the chat system when the messenger icon is clicked
-  const handleMessengerClick = () => {
-    setIsChatOpen(!isChatOpen); // Toggle chat visibility
+  // Load posts from localStorage on component mount
+  useEffect(() => {
+    const savedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+    setPosts(savedPosts);
+  }, []);
+
+  // Add post to state and save to localStorage
+  const addPost = (newPost) => {
+    const updatedPosts = [...posts, newPost];
+    setPosts(updatedPosts);
+    localStorage.setItem('posts', JSON.stringify(updatedPosts));
+  };
+
+  // Handle file input to add a post with image and caption
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const caption = prompt("Enter caption:");
+        const newPost = {
+          imageUrl: e.target.result,
+          caption: caption || 'New post!',
+          likes: 0,
+          comments: [],
+          shares: 0
+        };
+        addPost(newPost);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
     <Router>
       <div className="App">
-        {/* Navigation bar with Profile icon */}
-        <div className="navbar">
-          <Link to="/" className="home-link">Home</Link> 
-          <Link to="/profile" className="profile-link">
-            <img src="path_to_profile_icon" alt="Profile Icon" className="profile-icon" />
+        {/* Bottom Navbar for mobile view */}
+        <div className="bottom-navbar">
+          <Link to="/" className="nav-item">
+            <FaHome size={30} />
+          </Link>
+          <label className="nav-item post-button">
+            <FaPlusCircle size={30} />
+            <input type="file" onChange={handleFileChange} style={{ display: 'none' }} />
+          </label>
+          <Link to="/profile" className="nav-item">
+            <FaUserCircle size={30} />
           </Link>
         </div>
 
-        {/* Define Routes for different pages */}
+        {/* Define Routes */}
         <Routes>
-          <Route path="/" element={<Home />} /> {/* Home Page */}
-          <Route path="/profile" element={<Profile />} /> {/* Profile Page */}
+          <Route path="/" element={<Home posts={posts} />} /> {/* Home with posts */}
+          <Route path="/profile" element={<Profile posts={posts} />} /> {/* Profile with posts */}
         </Routes>
-
-        {/* Messenger Icon to open chat */}
-        <div className="messenger-icon" onClick={handleMessengerClick}>
-          <FaFacebookMessenger size={30} /> {/* Messenger Icon inside the button */}
-        </div>
-
-        {/* Chat Modal System */}
-        {isChatOpen && (
-          <div className="chat-modal-overlay">
-            <div className="chat-modal-content">
-              {/* Close button for the chat */}
-              <button className="close-chat-btn" onClick={handleMessengerClick}>X</button>
-
-              {/* ChatSystem Component */}
-              <ChatSystem /> {/* General chat system for all users */}
-            </div>
-          </div>
-        )}
       </div>
     </Router>
   );
 }
 
 export default App;
-

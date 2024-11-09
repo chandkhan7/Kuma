@@ -3,7 +3,7 @@
   width: 100%;
   padding: 20px;
   background-color: #181818;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .home-header {
@@ -42,4 +42,228 @@
 
 .home-content p {
   font-size: 20px;
+}
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.vertical-navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-color: #333;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-item:hover {
+  background-color: #444;
+  border-radius: 50%;
+}
+
+.post-button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.post-button:hover {
+  background-color: #444;
+  border-radius: 50%;
+}
+
+/* Home Page Styles */
+.home-container {
+  margin-left: 80px; /* Adjusted for the vertical navbar */
+  padding: 20px;
+}
+
+.post {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.post-header {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.post-body {
+  margin-top: 10px;
+}
+
+.post-footer button {
+  margin-right: 10px;
+  background-color: #0084ff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post-footer button:hover {
+  background-color: #005bb5;
+}
+/* src/styles/App.css */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottom-navbar {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+}
+
+.nav-item {
+  color: #555;
+}
+
+.post-button {
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* src/components/home/Home.css */
+.home-container {
+  padding-top: 20px;
+  padding-bottom: 60px; /* Add padding to prevent overlap with navbar */
+}
+
+.post {
+  margin-bottom: 15px;
+}
+
+.post img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+/* src/styles/App.css */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottom-navbar {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+}
+
+.nav-item {
+  color: #555;
+}
+
+.post-button {
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* src/components/home/Home.css */
+.home-container {
+  padding-top: 20px;
+  padding-bottom: 60px; /* Add padding to prevent overlap with navbar */
+}
+
+.post {
+  margin-bottom: 15px;
+}
+
+.post img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+/* styles/App.css */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #121212; /* Dark background */
+  color: #e0e0e0; /* Light text color for contrast */
+  height: 100vh;
+}
+
+.vertical-navbar {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background-color: #1c1c1c;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.vertical-navbar .nav-item {
+  color: #e0e0e0;
+  transition: color 0.2s;
+}
+
+.vertical-navbar .nav-item:hover {
+  color: #ff8c00; /* Accent color on hover */
+}
+
+.feed-container, .profile-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 80px auto 0 auto;
+  padding: 15px;
+  overflow-y: auto;
+  background-color: #181818; /* Dark card background */
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.post {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #282828;
+  border-radius: 8px;
 }
