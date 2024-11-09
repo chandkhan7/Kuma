@@ -1,17 +1,19 @@
-// src/components/ChatRoom.js
-import React, { useState, useEffect, useRef } from 'react';
-import './ChatRoom.css';  // Import custom styles for the chat room
-import { FaPaperPlane } from 'react-icons/fa'; // Import the send icon
+// src/components/Messenger.js
+import React, { useState, useRef, useEffect } from 'react';
+import '../Messenger/Messenger.css';
+import './ChatRoom.css'; // Import custom styles for the chat room
 
-function ChatRoom() {
+function Messenger() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const messagesEndRef = useRef(null); // To scroll to the latest message
+  const inputRef = useRef(null); // Reference for input field to keep focus
 
   const handleSendMessage = () => {
     if (message.trim()) {
       setMessages([...messages, { text: message, sender: 'You' }]);
       setMessage('');
+      // Keep the input focused after sending a message
+      inputRef.current.focus();
     }
   };
 
@@ -21,38 +23,18 @@ function ChatRoom() {
     }
   };
 
-  // Auto-scroll to the latest message when it is added
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
   return (
-    <div className="chat-room-container">
-      {/* Chat Header */}
-      <div className="chat-header d-flex justify-content-between align-items-center">
-        <h5 className="text-white">Chat Room</h5>
-        <div className="close-btn">
-          <button className="btn btn-light">X</button>
-        </div>
-      </div>
-
-      {/* Messages Display Area */}
+    <div className="messenger">
       <div className="messages-container">
         {messages.map((msg, index) => (
-          <div 
-            key={index} 
-            className={`message-bubble ${msg.sender === 'You' ? 'sent' : 'received'}`}
-          >
-            <strong>{msg.sender}: </strong>{msg.text}
+          <div key={index} className={`message-bubble ${msg.sender === 'You' ? 'sent' : 'received'}`}>
+            {msg.text}
           </div>
         ))}
-        {/* Scroll to bottom */}
-        <div ref={messagesEndRef} />
       </div>
-
-      {/* Input Area */}
       <div className="input-container">
         <input 
+          ref={inputRef} // Bind input to reference
           type="text" 
           value={message} 
           onChange={(e) => setMessage(e.target.value)} 
@@ -60,16 +42,12 @@ function ChatRoom() {
           placeholder="Type a message..." 
           className="message-input"
         />
-        <button 
-          onClick={handleSendMessage} 
-          className="send-button" 
-          aria-label="Send message"
-        >
-          <FaPaperPlane size={20} />
+        <button onClick={handleSendMessage} className="send-icon" aria-label="Send message">
+          {/* Plane icon here */}
         </button>
       </div>
     </div>
   );
 }
 
-export default ChatRoom;
+export default Messenger;

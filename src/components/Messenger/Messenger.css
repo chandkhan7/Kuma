@@ -197,3 +197,194 @@
 .send-button:hover {
   background-color: #0056b3;
 }
+/* Messenger Component Styles */
+.messenger {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  width: 100%; /* Full width on mobile */
+  max-width: 500px; /* Restrict width on larger screens */
+  padding: 10px;
+  background-color: #f7f7f7;
+  margin: 0 auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for separation */
+}
+
+.messages-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #e9ecef;
+  max-width: 100%;
+}
+
+.message-bubble {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 12px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.sent {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+.received {
+  background-color: #f1f1f1;
+  color: black;
+  align-self: flex-start;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff;
+  border-top: 1px solid #ccc;
+}
+
+.message-input {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 20px;
+  border: 1px solid #ced4da;
+}
+
+.send-icon {
+  cursor: pointer;
+  color: #007bff;
+  transition: transform 0.2s;
+}
+
+.send-icon:hover {
+  transform: scale(1.1); /* Slightly enlarge icon on hover */
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 600px) {
+  .messenger {
+    max-width: 100%; /* Full width on mobile screens */
+    padding: 5px;
+  }
+
+  .message-bubble {
+    max-width: 90%; /* Slightly wider bubbles on smaller screens */
+  }
+
+  .input-container {
+    padding: 5px;
+  }
+
+  .message-input {
+    padding: 8px;
+    margin-right: 5px;
+  }
+
+  .send-icon {
+    transform: scale(1); /* Normalize scale on mobile */
+  }
+}
+/* Messenger Component Styles */
+.messenger {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  width: 100%; /* Full width on mobile */
+  max-width: 500px; /* Restrict width on larger screens */
+  padding: 10px;
+  background-color: #f7f7f7;
+  margin: 0 auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for separation */
+}
+
+.messages-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #e9ecef;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.message-bubble {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 12px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.sent {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+.received {
+  background-color: #f1f1f1;
+  color: black;
+  align-self: flex-start;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  background-color: #ffffff;
+  border-top: 1px solid #ccc;
+  gap: 10px; /* Add space between input and icon */
+}
+
+.message-input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 20px;
+  border: 1px solid #ced4da;
+  outline: none;
+  font-size: 1rem; /* Adjust font size for better visibility */
+}
+
+.send-icon {
+  font-size: 24px; /* Larger icon for better visibility */
+  cursor: pointer;
+  color: #007bff;
+  transition: transform 0.2s;
+}
+
+.send-icon:hover {
+  transform: scale(1.1); /* Slightly enlarge icon on hover */
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 600px) {
+  .messenger {
+    max-width: 100%; /* Full width on mobile screens */
+    padding: 5px;
+  }
+
+  .message-bubble {
+    max-width: 90%; /* Slightly wider bubbles on smaller screens */
+  }
+
+  .input-container {
+    padding: 5px;
+    gap: 5px; /* Reduce gap on mobile */
+  }
+
+  .message-input {
+    padding: 6px;
+    margin-right: 5px;
+    font-size: 0.9rem; /* Adjust font size on mobile */
+  }
+
+  .send-icon {
+    transform: scale(1); /* Normalize scale on mobile */
+    font-size: 20px; /* Smaller icon for mobile */
+  }
+}
