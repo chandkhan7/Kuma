@@ -662,7 +662,7 @@
 }
 
 .dropdown-menu .dropdown-item {
-  color: #333;
+  color: #000000;
 }
 
 .dropdown-menu .dropdown-item:hover {
@@ -694,3 +694,4 @@
 .App {
   transition: opacity 0.5s ease-in-out;
 }
+
