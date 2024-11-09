@@ -786,3 +786,86 @@ video, audio {
 .vt-btn:focus {
   outline: 2px solid #ffffff; /* White outline for focus visibility */
 }
+.messenger {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.messages-container {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.message-bubble {
+  background-color: #e1f5fe;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.sent {
+  background-color: #007bff;
+  color: rgb(0, 0, 0);
+  align-self: flex-end;
+}
+
+.received {
+  background-color: #f1f1f1;
+  color: black;
+  align-self: flex-start;
+}
+
+.context-menu {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  padding: 5px;
+}
+
+.context-menu ul {
+  margin: 0;
+  padding: 0;
+}
+
+.context-menu li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.context-menu li:hover {
+  background-color: #f1f1f1;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.message-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-right: 10px;
+}
+
+.send-icon, .media-icon {
+  cursor: pointer;
+}
+
+.message-image, video {
+  max-width: 100%;
+  max-height: 200px;
+}
+
+.p-2{
+  color: black;
+}
+
