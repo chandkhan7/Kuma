@@ -554,7 +554,7 @@
   flex-grow: 1;
   overflow-y: auto;
   padding: 15px;
-  background-color: #108dbd;
+  background-color: #dee2e3;
   display: flex;
   flex-direction: column-reverse; /* Latest message at the bottom */
   max-height: calc(100vh - 130px); /* Adjust height to fit within the view */
@@ -637,4 +637,12 @@
   .send-icon {
     font-size: 18px; /* Smaller icon on mobile */
   }
+}
+.message-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+  border: none; /* Remove borders */
+  background: none; /* Remove background */
 }
