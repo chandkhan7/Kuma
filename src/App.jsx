@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/home/Home';
@@ -7,14 +8,19 @@ import Login from './components/Login';
 import { FaUserCircle, FaHome, FaPlusCircle, FaCog } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/App.css';
+import Settings from './components/Settings';
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [showSettings, setShowSettings] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const savedPosts = JSON.parse(localStorage.getItem('posts')) || [];
     setPosts(savedPosts);
+
+    // Check if user is logged in
+    const loggedInStatus = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
+    setIsLoggedIn(loggedInStatus);
   }, []);
 
   const addPost = (newPost) => {
@@ -42,10 +48,6 @@ function App() {
     }
   };
 
-  const toggleSettings = () => {
-    setShowSettings(!showSettings);
-  };
-
   return (
     <Router>
       <div className="App">
@@ -61,17 +63,7 @@ function App() {
           <Link to="/profile" className="nav-item text-white">
             <FaUserCircle size={30} />
           </Link>
-
-          {/* Settings Dropdown */}
-          <div className="nav-item position-relative text-white">
-            <FaCog size={30} onClick={toggleSettings} style={{ cursor: 'pointer' }} />
-            {showSettings && (
-              <div className="dropdown-menu dropdown-menu-right show p-2" style={{ position: 'absolute', bottom: '40px', right: '0' }}>
-                <Link to="/login" className="dropdown-item">Login</Link>
-                <Link to="/signup" className="dropdown-item">Create Account</Link>
-              </div>
-            )}
-          </div>
+          <Settings isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         </div>
 
         {/* Define Routes */}

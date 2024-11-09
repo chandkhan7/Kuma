@@ -589,7 +589,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #121212;
+  background-color: #000000;
 }
 
 .bottom-navbar {
@@ -662,7 +662,7 @@
 }
 
 .dropdown-menu .dropdown-item {
-  color: #000000;
+  color: #0717f5;
 }
 
 .dropdown-menu .dropdown-item:hover {
