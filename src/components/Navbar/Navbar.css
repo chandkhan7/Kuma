@@ -1,0 +1,35 @@
+/* src/components/Navbar.css */
+
+.messenger-icon {
+  position: relative; /* Allow positioning of the notification bubble */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0078FF; /* Messenger blue */
+  border-radius: 50%;  /* Circular background */
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.messenger-icon:hover {
+  background-color: #0058b0; /* Darker blue on hover */
+}
+
+.messenger-icon svg {
+  color: white;  /* White chat bubble icon */
+  font-size: 1.5rem; /* Increase icon size */
+}
+
+.messenger-icon::after {
+  content: '';  /* Empty content */
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 12px;
+  height: 12px;
+  background-color: #ff3b30;  /* Red notification bubble */
+  border-radius: 50%;
+  border: 2px solid white;  /* White border around the notification */
+  display: block;
+}
