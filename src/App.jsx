@@ -1,9 +1,10 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/home/Home';
 import Profile from './components/profile/Profile';
-import { FaUserCircle, FaHome, FaPlusCircle } from 'react-icons/fa';
+import Signup from './components/Signup';
+import Login from './components/Login'; // Import Login Component
+import { FaUserCircle, FaHome, FaPlusCircle, FaCog } from 'react-icons/fa'; // Add FaCog for settings
 import './styles/App.css';
 
 function App() {
@@ -57,12 +58,23 @@ function App() {
           <Link to="/profile" className="nav-item">
             <FaUserCircle size={30} />
           </Link>
+          <div className="nav-item dropdown">
+            <FaCog size={30} data-bs-toggle="dropdown" aria-expanded="false" />
+            <ul className="dropdown-menu">
+              <li>
+                <Link to="/signup" className="dropdown-item">Create Account</Link>
+              </li>
+              {/* Add more settings options here if needed */}
+            </ul>
+          </div>
         </div>
 
         {/* Define Routes */}
         <Routes>
           <Route path="/" element={<Home posts={posts} />} /> {/* Home with posts */}
           <Route path="/profile" element={<Profile posts={posts} />} /> {/* Profile with posts */}
+          <Route path="/signup" element={<Signup />} /> {/* Signup page */}
+          <Route path="/login" element={<Login />} /> {/* Login page */}
         </Routes>
       </div>
     </Router>

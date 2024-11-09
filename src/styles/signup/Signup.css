@@ -1,0 +1,58 @@
+body {
+  background-color: #f4f4f9;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+h3 {
+  font-weight: 600;
+  color: #000000;
+}
+
+form input {
+  border-radius: 5px;
+}
+
+form button {
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+/* Dropdown menu animation */
+.dropdown-menu {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dropdown-menu.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Navbar item hover effect */
+.nav-item {
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav-item:hover {
+  transform: scale(1.1);
+}
+
+/* Fade in transition for pages */
+.App {
+  transition: opacity 0.5s ease-in-out;
+}

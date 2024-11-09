@@ -1,0 +1,365 @@
+/* Login Page Styles */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.login-wrapper {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+}
+
+.login-box {
+  background-color: white;
+  border: 1px solid #dbdbdb;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-box h3 {
+  font-family: 'Instagram', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #262626;
+  margin-bottom: 20px;
+}
+
+.login-box .form-control {
+  border-radius: 5px;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border: 1px solid #dbdbdb;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box .form-control:focus {
+  border-color: #bd1010; /* Using the red color #bd1010 */
+  box-shadow: 0 0 5px rgba(189, 16, 16, 0.5);
+}
+
+.login-box button {
+  background-color: #bd1010; /* Red color for the button */
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-box button:hover {
+  background-color: #a80e0e; /* Slightly darker red for hover effect */
+}
+
+.login-box .text-center a {
+  color: #bd1010;
+  font-size: 14px;
+}
+
+.login-box .text-center a:hover {
+  text-decoration: underline;
+  color: #a80e0e; /* Darker red for the link hover effect */
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: 20px;
+  }
+
+  .login-box {
+    width: 100%;
+  }
+}
+
+/* Styling for the form inputs */
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.form-control:focus {
+  border-color: #bd1010;
+  outline: none;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #bd1010;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #a80e0e;
+}
+
+.text-center p {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.text-center a {
+  color: #bd1010;
+}
+
+.text-center a:hover {
+  text-decoration: underline;
+}
+/* General Page Styling */
+body {
+  background-color: #000;  /* Black background */
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.login-wrapper {
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+}
+
+.login-box {
+  background-color: white;  /* White background for the login box */
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-box h2 {
+  font-family: 'Arial', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;  /* Dark font color */
+  margin-bottom: 20px;
+}
+
+.login-box .form-control {
+  border-radius: 5px;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box .form-control:focus {
+  border-color: #bd1010;  /* Red border color on focus */
+  box-shadow: 0 0 5px rgba(189, 16, 16, 0.5);
+}
+
+.login-box button {
+  background-color: #bd1010;  /* Red color for the button */
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-box button:hover {
+  background-color: #a80e0e;  /* Darker red on hover */
+}
+
+.login-box .text-center a {
+  color: #bd1010;  /* Red color for the link */
+}
+
+.login-box .text-center a:hover {
+  text-decoration: underline;
+  color: #a80e0e;  /* Darker red on hover */
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: 20px;
+  }
+
+  .login-wrapper {
+    max-width: 100%;  /* Make it responsive for smaller screens */
+  }
+
+  .login-box {
+    width: 100%;
+  }
+}
+
+/* Additional styling for form elements */
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #262626;  /* Dark font color for labels */
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.form-control:focus {
+  border-color: #bd1010;  /* Red border color on focus */
+  outline: none;
+}
+
+.text-center p {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.text-center a {
+  color: #bd1010;
+}
+
+.text-center a:hover {
+  text-decoration: underline;
+}
+/* General Page Styling */
+body {
+  background-color: #000;  /* Black background */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.row.justify-content-center {
+  width: 100%;
+}
+
+.card {
+  max-width: 500px;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.card-body {
+  padding: 40px 30px;
+}
+
+.card-body h3 {
+  text-align: center;
+  font-size: 28px;
+  color: #333; /* Dark text color */
+  margin-bottom: 30px;
+}
+
+.card-body .form-control {
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-body .form-control:focus {
+  border-color: #bd1010;  /* Red border color on focus */
+  box-shadow: 0 0 5px rgba(189, 16, 16, 0.5);
+}
+
+.card-body button {
+  background-color: #bd1010;  /* Red color for the button */
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-body button:hover {
+  background-color: #a80e0e;  /* Darker red on hover */
+}
+
+.card-body .text-center a {
+  color: #bd1010;  /* Red color for the link */
+}
+
+.card-body .text-center a:hover {
+  text-decoration: underline;
+  color: #a80e0e;  /* Darker red on hover */
+}
+
+.card-body .alert {
+  margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .card {
+    width: 100%;  /* Make it responsive for smaller screens */
+  }
+
+  .card-body {
+    padding: 30px 20px;
+  }
+}
+
+/* Additional styling for form elements */
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #262626;  /* Dark font color for labels */
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.form-control:focus {
+  border-color: #bd1010;  /* Red border color on focus */
+  outline: none;
+}
+
+.text-center p {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.text-center a {
+  color: #bd1010;
+}
+
+.text-center a:hover {
+  text-decoration: underline;
+}
