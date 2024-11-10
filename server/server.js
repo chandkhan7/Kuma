@@ -24,6 +24,46 @@ const transporter = nodemailer.createTransport({
     rejectUnauthorized: false,  // To avoid SSL/TLS issues
   },
 });
+// Backend - Express Route (Node.js)
+app.post('/approve-attendance', (req, res) => {
+  const { userId, ipAddress, status } = req.body;
+
+  // Update the database with the approval status
+  Attendance.updateOne(
+    { userId: userId, ipAddress: ipAddress },
+    { $set: { isApproved: status } },
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ message: 'Error updating approval status' });
+      }
+      res.status(200).json({ message: 'IP Approval status updated successfully' });
+    }
+  );
+});
+// Backend - Express Route (Node.js)
+app.post('/mark-attendance', (req, res) => {
+  const { userId, fingerprintData } = req.body;
+
+  // Verify fingerprint (you'll integrate with an SDK or API for this)
+  const isVerified = verifyFingerprint(fingerprintData);  // Example function
+
+  if (isVerified) {
+    // Update the attendance record in the database
+    Attendance.updateOne(
+      { userId: userId },
+      { $set: { attendanceMarked: true } },
+      (err, result) => {
+        if (err) {
+          return res.status(500).json({ message: 'Error marking attendance' });
+        }
+        res.status(200).json({ message: 'Attendance marked successfully' });
+      }
+    );
+  } else {
+    res.status(401).json({ message: 'Fingerprint verification failed' });
+  }
+});
+
 
 // Send password reset link
 app.post('/api/send-reset-link', (req, res) => {

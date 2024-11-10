@@ -1,11 +1,14 @@
+// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './components/home/Home';
 import Profile from './components/profile/Profile';
 import Signup from './components/Signup';
 import Login from './components/Login';
+import FingerprintAuthentication from './components/FingerprintAuthentication'; // Import the Fingerprint component
+
 import ForgotPassword from './components/ForgotPassword';
-import { FaUserCircle, FaHome, FaPlusCircle, FaCommentAlt } from 'react-icons/fa';
+import { FaUserCircle, FaHome, FaPlusCircle, FaCommentAlt, FaFingerprint } from 'react-icons/fa';
 import './styles/App.css';
 import Settings from './components/Settings';
 import Messenger from './components/Messenger';
@@ -18,6 +21,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [caption, setCaption] = useState('');
+  const [isFingerprintModalOpen, setIsFingerprintModalOpen] = useState(false); // State for Fingerprint Modal
   const location = useLocation();
 
   useEffect(() => {
@@ -74,6 +78,11 @@ function App() {
 
   const isNavbarVisible = location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/forgot-password';
 
+  // Toggle fingerprint authentication modal
+  const handleFingerprintClick = () => {
+    setIsFingerprintModalOpen(!isFingerprintModalOpen);
+  };
+
   return (
     <div className="App">
       {isNavbarVisible && (
@@ -91,6 +100,12 @@ function App() {
           <Link to="/messenger" className="nav-item text-white">
             <FaCommentAlt size={30} />
           </Link>
+
+          {/* Add Fingerprint Authentication icon */}
+          <div className="nav-item text-white" onClick={handleFingerprintClick}>
+            <FaFingerprint size={30} />
+          </div>
+
           <Settings isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} themeColor={themeColor} setThemeColor={setThemeColor} />
         </div>
       )}
@@ -111,6 +126,22 @@ function App() {
               <button onClick={handleConfirmPost} className="btn btn-primary">Post</button>
               <button onClick={handleCancelPost} className="btn btn-secondary">Cancel</button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Fingerprint Authentication Modal */}
+      {isFingerprintModalOpen && (
+        <div className="fingerprint-modal-overlay">
+          <div className="fingerprint-modal-content">
+            <h3>Verify Your Attendance</h3>
+            <FingerprintAuthentication />
+            <button
+              className="btn btn-secondary"
+              onClick={() => setIsFingerprintModalOpen(false)}
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
