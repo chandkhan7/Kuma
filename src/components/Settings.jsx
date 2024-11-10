@@ -1,40 +1,62 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaCog } from 'react-icons/fa';
 
 function Settings({ isLoggedIn, setIsLoggedIn }) {
   const [showSettings, setShowSettings] = useState(false);
-  const [loading, setLoading] = useState(false);  // To control loading state
-  const [creatingAccount, setCreatingAccount] = useState(false);  // To track loading for account creation
+  const [loading, setLoading] = useState(false);  
+  const [creatingAccount, setCreatingAccount] = useState(false);  
+  const [themeColor, setThemeColor] = useState(localStorage.getItem('themeColor') || 'dark');  // Default theme is dark
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Apply the selected theme to the body element 
+    document.body.className = themeColor;
+    switch(themeColor) {
+      case 'light':
+        document.body.style.backgroundColor = '#f0f0f0'; // Light theme background
+        break;
+      case 'blue':
+        document.body.style.backgroundColor = '#1e3a8a'; // Blue theme background
+        break;
+      default:
+        document.body.style.backgroundColor = '#121212'; // Dark theme background
+    }
+    // Save the theme color in localStorage to persist the theme
+    localStorage.setItem('themeColor', themeColor);
+  }, [themeColor]);
 
   const toggleSettings = () => {
     setShowSettings((prev) => !prev);
   };
 
   const handleLoginRedirect = () => {
-    setLoading(true);  // Start the loading process
+    setLoading(true);  
     setTimeout(() => {
-      setLoading(false);  // Stop loading after 1 second
-      navigate('/login');  // Redirect to login page
-    }, 1000);  // Wait for 1 second before redirecting
+      setLoading(false);  
+      navigate('/login');
+    }, 1000);  
   };
 
   const handleLogout = () => {
-    setLoading(true);  // Start the loading process for logout
+    setLoading(true);  
     setTimeout(() => {
       localStorage.removeItem('isLoggedIn');
       setIsLoggedIn(false);
-      navigate('/login');  // Redirect to login page after logout
-    }, 1000);  // Wait for 1 second before logging out
+      navigate('/login');  
+    }, 1000);  
   };
 
   const handleCreateAccount = () => {
-    setCreatingAccount(true);  // Start loading for account creation
+    setCreatingAccount(true);  
     setTimeout(() => {
-      setCreatingAccount(false);  // Stop loading after 1 second
-      navigate('/signup');  // Redirect to signup page
-    }, 1000);  // Wait for 1 second before navigating
+      setCreatingAccount(false);  
+      navigate('/signup');  
+    }, 1000);  
+  };
+
+  const handleThemeChange = (color) => {
+    setThemeColor(color);  // Update the theme color state
   };
 
   return (
@@ -47,23 +69,23 @@ function Settings({ isLoggedIn, setIsLoggedIn }) {
           position: 'absolute', 
           bottom: '40px', 
           right: '0',
-          zIndex: 10, // Ensure dropdown shows above other content
+          zIndex: 10, 
         }}>
           {!isLoggedIn ? (
             <>
               <button 
                 className="dropdown-item create-account-btn" 
                 onClick={handleCreateAccount}
-                disabled={creatingAccount || loading}  // Disable button during loading
+                disabled={creatingAccount || loading}  
               >
                 {creatingAccount ? 'Creating account...' : 'Create Account'}
               </button>
               <button 
                 className="dropdown-item login-btn" 
                 onClick={handleLoginRedirect}
-                disabled={loading}  // Disable button during loading
+                disabled={loading}  
               >
-                {loading ? 'Loading...' : 'Log in'}  {/* Show loading text */}
+                {loading ? 'Loading...' : 'Log in'}  
               </button>
             </>
           ) : (
@@ -71,12 +93,36 @@ function Settings({ isLoggedIn, setIsLoggedIn }) {
               <button 
                 className="dropdown-item logout-btn" 
                 onClick={handleLogout}
-                disabled={loading}  // Disable button during loading
+                disabled={loading}  
               >
                 {loading ? 'Logging out...' : 'Logout'}
               </button>
             </>
           )}
+
+          {/* Theme color change options */}
+          <div className="dropdown-divider my-2"></div>
+          <p className="theme-title">Change Theme Color</p>
+          <div className="theme-options">
+            <button 
+              className={`theme-btn ${themeColor === 'dark' ? 'active' : ''}`} 
+              onClick={() => handleThemeChange('dark')}
+            >
+              Dark Theme
+            </button>
+            <button 
+              className={`theme-btn ${themeColor === 'light' ? 'active' : ''}`} 
+              onClick={() => handleThemeChange('light')}
+            >
+              Light Theme
+            </button>
+            <button 
+              className={`theme-btn ${themeColor === 'blue' ? 'active' : ''}`} 
+              onClick={() => handleThemeChange('blue')}
+            >
+              Blue Theme
+            </button>
+          </div>
         </div>
       )}
     </div>

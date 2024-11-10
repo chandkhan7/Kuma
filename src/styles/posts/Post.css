@@ -210,7 +210,7 @@
   width: 100%;
   padding: 10px;
   border: none;
-  background-color: #444;
+  background-color: #ffffff;
   color: white;
   border-radius: 5px;
   margin-top: 10px;
@@ -252,3 +252,26 @@
   cursor: pointer;
 }
 
+/* Dark Theme */
+body.dark {
+  background-color: #121212;  /* Dark background */
+  color: white;
+}
+
+/* Light Theme */
+body.light {
+  background-color: #f0f0f0;  /* Light background */
+  color: black;
+}
+
+/* Blue Theme */
+body.blue {
+  background-color: #1e3a8a;  /* Blue background */
+  color: white;
+}
+
+/* Optional: Style for active theme buttons */
+.theme-btn.active {
+  font-weight: bold;
+  border: 2px solid #007BFF;  /* Blue border for active button */
+}

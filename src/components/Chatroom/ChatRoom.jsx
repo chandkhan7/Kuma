@@ -33,15 +33,7 @@ function Messenger() {
         ))}
       </div>
       <div className="input-container">
-        <input 
-          ref={inputRef} // Bind input to reference
-          type="text" 
-          value={message} 
-          onChange={(e) => setMessage(e.target.value)} 
-          onKeyDown={handleKeyDown} 
-          placeholder="Type a message..." 
-          className="message-input"
-        />
+       
         <button onClick={handleSendMessage} className="send-icon" aria-label="Send message">
           {/* Plane icon here */}
         </button>

@@ -267,3 +267,510 @@ body {
   background-color: #282828;
   border-radius: 8px;
 }
+.post-header {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  padding: 8px;
+}
+
+.post-menu-icon {
+  cursor: pointer;
+}
+
+.post-options {
+  position: absolute;
+  top: 24px;
+  right: 8px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  z-index: 10;
+}
+
+.post-options button {
+  background: none;
+  border: none;
+  color: #bd1010;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: left;
+}
+
+.post-options button:hover {
+  background-color: #f1f1f1;
+}
+/* Ensure the post container respects the 1080px max dimensions */
+.post {
+  max-width: 1080px;
+  margin: auto;
+}
+/* src/components/home/Home.css */
+
+.post-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1; /* Ensures a 1:1 ratio */
+  object-fit: cover; /* Scales image to fill container without stretching */
+  max-width: 1080px;
+  max-height: 1080px;
+  margin: auto;
+}
+/* src/styles/home/Home.css */
+
+/* General styles for post */
+.post {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 10px;
+  width: 100%; /* Allow the post to take up full available width */
+  max-width: 1080px; /* Limit max width for large screens */
+  margin: auto;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 30%;
+}
+
+/* Styling for the post header (ellipsis menu) */
+.post-header {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.post-menu-icon {
+  cursor: pointer;
+}
+
+/* Post options menu (delete button) */
+.post-options {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  z-index: 10;
+}
+
+.post-header:hover .post-options {
+  display: block;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Post Image Container (for square 1:1 aspect ratio) */
+.post-image-container {
+  width: 100%;
+  padding-top: 100%; /* Creates a 1:1 aspect ratio */
+  position: relative;
+}
+
+.post-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Scales the image to cover the container without stretching */
+}
+
+/* Post Actions (like, comment, share icons) */
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.post-action-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.post-action-item svg {
+  margin-right: 5px;
+}
+
+.post-action-item:hover {
+  color: #555;
+}
+
+/* Caption Style */
+.post-caption {
+  font-size: 14px;
+  color: #333;
+  margin-top: 8px;
+  text-align: left;
+  line-height: 1.4;
+  flex-grow: 1; /* Ensure caption stays at the bottom */
+  word-wrap: break-word;
+}
+/* General styles for post */
+.post {
+  margin-bottom: 30px; /* Increased space between posts */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 10px;
+  width: 90%; /* Set width to 90% of the container */
+  max-width: 1200px; /* Increased max-width for larger screens */
+  min-width: 300px; /* Ensure posts are not too small on mobile screens */
+  margin: auto;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto; /* Adjust height for flexible content */
+}
+
+/* Styling for the post header (ellipsis menu) */
+.post-header {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.post-menu-icon {
+  cursor: pointer;
+}
+
+/* Post options menu (delete button) */
+.post-options {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  z-index: 10;
+}
+
+.post-header:hover .post-options {
+  display: block;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Post Image Container (for square 1:1 aspect ratio) */
+.post-image-container {
+  width: 100%;
+  padding-top: 100%; /* Creates a 1:1 aspect ratio */
+  position: relative;
+}
+
+.post-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Scales the image to cover the container without stretching */
+}
+
+/* Post Actions (like, comment, share icons) */
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.post-action-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.post-action-item svg {
+  margin-right: 5px;
+}
+
+.post-action-item:hover {
+  color: #555;
+}
+
+/* Caption Style */
+.post-caption {
+  font-size: 14px;
+  color: #000000; /* Dark black color for caption */
+  margin-top: 8px;
+  text-align: left;
+  line-height: 1.4;
+  flex-grow: 1; /* Ensure caption stays at the bottom */
+  word-wrap: break-word;
+}
+/* General styles for post */
+.post {
+  margin-bottom: 30px; /* Increased space between posts */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 10px;
+  width: 90%; /* Set width to 90% of the container */
+  max-width: 1200px; /* Increased max-width for larger screens */
+  min-width: 300px; /* Ensure posts are not too small on mobile screens */
+  margin: auto;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto; /* Adjust height for flexible content */
+}
+
+/* Styling for the post header (ellipsis menu) */
+.post-header {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.post-menu-icon {
+  cursor: pointer;
+}
+
+/* Post options menu (delete button) */
+.post-options {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  z-index: 10;
+}
+
+.post-header:hover .post-options {
+  display: block;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Post Image Container (for square 1:1 aspect ratio) */
+.post-image-container {
+  width: 100%;
+  padding-top: 100%; /* Creates a 1:1 aspect ratio */
+  position: relative;
+}
+
+.post-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Scales the image to cover the container without stretching */
+}
+
+/* Post Actions (like, comment, share icons) */
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.post-action-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.post-action-item svg {
+  margin-right: 5px;
+}
+
+.post-action-item:hover {
+  color: #555;
+}
+
+/* Caption Style */
+.post-caption {
+  font-size: 14px;
+  color: #000000; /* Dark black color for caption */
+  margin-top: 8px;
+  text-align: left;
+  line-height: 1.4;
+  flex-grow: 1; /* Ensure caption stays at the bottom */
+  word-wrap: break-word;
+}
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* This will add space between the posts */
+}
+
+.post {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-image-container {
+  margin-top: 10px;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.post-action-item {
+  display: flex;
+  align-items: center;
+  color: #333; /* Dark color for icons */
+}
+
+.post-caption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.post-options {
+  background-color: #fff;
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+/* Default to dark theme */
+body.dark {
+  background-color: #121212;
+  color: white;
+}
+
+/* Light theme */
+body.light {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+/* Blue theme */
+body.blue {
+  background-color: #1e3a8a; /* Dark blue background */
+  color: white;
+}
+
+/* Style for theme buttons */
+.theme-btn {
+  background-color: transparent;
+  border: none;
+  padding: 5px 15px;
+  margin: 5px 0;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+}
+
+.theme-btn.active {
+  font-weight: bold;
+  color: #007bff;  /* Blue color for active button */
+}
+
+.theme-title {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #333;
+}
+/* Dark Theme */
+body.dark {
+  background-color: #121212;  /* Dark background */
+  color: white;
+}
+
+/* Light Theme */
+body.light {
+  background-color: #f0f0f0;  /* Light background */
+  color: black;
+}
+
+/* Blue Theme */
+body.blue {
+  background-color: #1e3a8a;  /* Blue background */
+  color: white;
+}
+
+/* Optional: Style for active theme buttons */
+.theme-btn.active {
+  font-weight: bold;
+  border: 2px solid #007BFF;  /* Blue border for active button */
+}

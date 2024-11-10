@@ -1,15 +1,12 @@
-// src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
-import store from './redux/store'; // Import the store you created
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import './index.css'; // Import your custom CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <Provider store={store}>  {/* Wrap your App component with Provider */}
+  <Router>
     <App />
-  </Provider>,
+  </Router>,
   document.getElementById('root')
 );

@@ -695,3 +695,336 @@
   transition: opacity 0.5s ease-in-out;
 }
 
+/* App.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  transform: scale(0.8);
+  animation: zoomIn 0.3s ease forwards;
+}
+
+.confirm-message {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #000000;
+}
+
+.preview-image {
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.caption-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.modal-buttons button {
+  margin: 5px;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* Caption input text color */
+.caption-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #000000;
+}
+
+/* Confirm message styling */
+.confirm-message {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Preview image styling */
+.preview-image {
+  max-width: 100%;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+/* Modal buttons styling */
+.modal-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin: 5px;
+  cursor: pointer;
+}
+
+/* Post button styling */
+.modal-buttons .btn-primary {
+  background-color: #2a9d8f; /* A complementary blue-green color */
+  color: #fff;
+}
+
+.modal-buttons .btn-primary:hover {
+  background-color: #21867a; /* Slightly darker shade */
+}
+
+/* Cancel button styling */
+.modal-buttons .btn-secondary {
+  background-color: #bd1010; /* Red color for Cancel */
+  color: #fff;
+}
+
+.modal-buttons .btn-secondary:hover {
+  background-color: #a30e0e; /* Slightly darker shade */
+}
+/* Styles for bottom-navbar and font icons */
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #333; /* Dark background for the navbar */
+  border-top: 1px solid #ddd;
+  z-index: 100;
+}
+
+.nav-item {
+  color: #000000; /* Dark black color for font icons */
+  text-align: center;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #555555; /* Lighter black on hover */
+}
+
+.nav-item input {
+  display: none; /* Hide the file input */
+}
+
+/* Spacing between posts */
+.post {
+  margin-bottom: 30px; /* Increased margin to space out the posts */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 10px;
+  width: 90%;
+  max-width: 1200px;
+  min-width: 300px;
+  margin: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+}
+
+/* Caption font color */
+.post-caption {
+  font-size: 14px;
+  color: #000000; /* Dark black color for the caption */
+  margin-top: 8px;
+  text-align: left;
+  line-height: 1.4;
+  flex-grow: 1;
+  word-wrap: break-word;
+}
+/* General styles for post */
+.post {
+  margin-bottom: 30px; /* Increased space between posts */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 10px;
+  width: 90%; /* Set width to 90% of the container */
+  max-width: 1200px; /* Increased max-width for larger screens */
+  min-width: 300px; /* Ensure posts are not too small on mobile screens */
+  margin: auto;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto; /* Adjust height for flexible content */
+}
+
+/* Font Icon Color for Navbar */
+.bottom-navbar .nav-item {
+  color: #000000; /* Set the font icons to dark black */
+}
+
+.bottom-navbar .nav-item:hover {
+  color: #333333; /* Optional: Slightly lighter on hover */
+}
+
+/* Add styles for the modal preview image and buttons */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  animation: zoomIn 0.3s;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.preview-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* App.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  transform: scale(0.8);
+  animation: zoomIn 0.3s ease forwards;
+}
+
+.confirm-message {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.preview-image {
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.caption-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.modal-buttons button {
+  margin: 5px;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* Dark Theme */
+body.dark {
+  background-color: #121212;  /* Dark background */
+  color: white;
+}
+
+/* Light Theme */
+body.light {
+  background-color: #f0f0f0;  /* Light background */
+  color: black;
+}
+
+/* Blue Theme */
+body.blue {
+  background-color: #1e3a8a;  /* Blue background */
+  color: white;
+}
+
+/* Optional: Style for active theme buttons */
+.theme-btn.active {
+  font-weight: bold;
+  border: 2px solid #007BFF;  /* Blue border for active button */
+}

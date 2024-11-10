@@ -56,3 +56,26 @@ a:hover {
 .App {
   transition: opacity 0.5s ease-in-out;
 }
+/* Dark Theme */
+body.dark {
+  background-color: #121212;  /* Dark background */
+  color: white;
+}
+
+/* Light Theme */
+body.light {
+  background-color: #f0f0f0;  /* Light background */
+  color: black;
+}
+
+/* Blue Theme */
+body.blue {
+  background-color: #1e3a8a;  /* Blue background */
+  color: white;
+}
+
+/* Optional: Style for active theme buttons */
+.theme-btn.active {
+  font-weight: bold;
+  border: 2px solid #007BFF;  /* Blue border for active button */
+}
