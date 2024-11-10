@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './../styles/Login.css';  // Import custom CSS for styling
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,7 +17,9 @@ const Login = () => {
     const user = users.find(user => user.username === username && user.password === password);
 
     if (user) {
-      navigate('/'); // Redirect to Home page on successful login
+      localStorage.setItem('user', JSON.stringify(user));  // Save user data in localStorage
+      setIsLoggedIn(true);
+      navigate('/profile');  // Redirect to Profile page
     } else {
       setError('Invalid username or password');
     }
@@ -58,6 +60,9 @@ const Login = () => {
               </form>
               <p className="mt-3 text-center">
                 Don't have an account? <a href="/signup">Sign Up</a>
+              </p>
+              <p className="text-center">
+                <a href="/forgot-password">Forgot Password?</a>
               </p>
             </div>
           </div>

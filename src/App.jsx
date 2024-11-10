@@ -4,6 +4,7 @@ import Home from './components/home/Home';
 import Profile from './components/profile/Profile';
 import Signup from './components/Signup';
 import Login from './components/Login';
+import ForgotPassword from './components/ForgotPassword';
 import { FaUserCircle, FaHome, FaPlusCircle, FaCommentAlt } from 'react-icons/fa';
 import './styles/App.css';
 import Settings from './components/Settings';
@@ -13,7 +14,7 @@ import ChatRoom from './components/Chatroom/ChatRoom';
 function App() {
   const [themeColor, setThemeColor] = useState(localStorage.getItem('themeColor') || 'dark'); // Default theme is dark
   const [posts, setPosts] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('user'));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [caption, setCaption] = useState('');
@@ -71,7 +72,7 @@ function App() {
     setCaption('');
   };
 
-  const isNavbarVisible = location.pathname !== '/login' && location.pathname !== '/signup';
+  const isNavbarVisible = location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/forgot-password';
 
   return (
     <div className="App">
@@ -119,7 +120,8 @@ function App() {
         <Route path="/" element={<Home posts={posts} setPosts={setPosts} />} />
         <Route path="/profile" element={<Profile posts={posts} />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/messenger" element={<Messenger />} />
         <Route path="/chat" element={<ChatRoom />} />
       </Routes>

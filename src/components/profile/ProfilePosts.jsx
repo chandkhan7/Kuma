@@ -1,8 +1,12 @@
-// src/components/profile/ProfilePosts.js
 import React from 'react';
-import '../../styles/posts/Post.css'; // Path to Post.css in the posts folder
+import '../../styles/posts/Post.css'; // Ensure this path is correct
 
 const ProfilePosts = ({ posts }) => {
+  // Check if posts are available and is an array
+  if (!posts || posts.length === 0) {
+    return <p>No posts available.</p>;
+  }
+
   return (
     <div className="profile-posts">
       {posts.map((post) => (
