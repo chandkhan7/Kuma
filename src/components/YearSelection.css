@@ -1,0 +1,90 @@
+/* src/styles/YearSelection.css */
+
+/* Container for the Year Selection */
+.year-selection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f7f7f7;
+  padding: 20px;
+}
+
+/* Title */
+.year-selection-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+/* Grid for the year options */
+.year-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Each Year Option */
+.year-option {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.year-option:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.year-option.selected {
+  background-color: #007bff;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.year-option p {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+/* Styling for the year option when active or selected */
+.year-option.active,
+.year-option.selected {
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+}
+
+.year-option p {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+  .year-selection-container {
+    padding: 15px;
+  }
+
+  .year-selection-title {
+    font-size: 1.8rem;
+  }
+
+  .year-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .year-option {
+    padding: 15px;
+    font-size: 1rem;
+  }
+}

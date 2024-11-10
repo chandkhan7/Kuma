@@ -1,0 +1,176 @@
+/* src/styles/Attendance.css */
+
+.attendance-container {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  font-size: 24px;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+.table {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  text-align: center;
+  padding: 12px;
+  font-size: 16px;
+  color: #495057;
+}
+
+.table th {
+  background-color: #007bff;
+  color: #fff;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table td {
+  font-weight: bold;
+}
+
+.table .fa-fingerprint {
+  color: #28a745;
+}
+
+.text-center {
+  text-align: center;
+}
+/* src/styles/Attendance.css */
+
+.attendance-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 0 auto; /* Center the container */
+  margin-top: 50px; /* Add margin to the top for spacing */
+}
+
+h3 {
+  font-size: 28px;
+  color: #343a40;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.table {
+  width: 100%; /* Ensure the table takes full width */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-collapse: collapse; /* Remove space between table cells */
+}
+
+.table th,
+.table td {
+  text-align: center;
+  padding: 15px 20px; /* Add padding for better readability */
+  font-size: 16px;
+  color: #495057;
+  border: 1px solid #dee2e6; /* Border between cells */
+}
+
+.table th {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table td {
+  font-weight: normal;
+}
+
+.table .fa-fingerprint {
+  color: #28a745;
+  font-size: 20px; /* Make the fingerprint icon slightly bigger */
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  /* Responsive Design for smaller screens */
+  .table th,
+  .table td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .attendance-container {
+    padding: 20px;
+  }
+}
+/* src/styles/Attendance.css */
+.attendance-container {
+  position: absolute;
+  top: 20px; /* Positioning from the top */
+  left: 20px; /* Positioning from the left */
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+h3 {
+  font-size: 24px;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+.table {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  text-align: center;
+  padding: 12px;
+  font-size: 16px;
+  color: #495057;
+}
+
+.table th {
+  background-color: #007bff;
+  color: #fff;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table td {
+  font-weight: bold;
+}
+
+.table .fa-fingerprint {
+  color: #28a745;
+}
+
+.text-center {
+  text-align: center;
+}

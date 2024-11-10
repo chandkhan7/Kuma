@@ -1,0 +1,54 @@
+/* Custom CSS for Room component */
+.room-container {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+.badge {
+  font-size: 0.875rem;
+}
+/* Custom CSS for Room component */
+.room-container {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item {
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.badge {
+  font-size: 0.875rem;
+  float: right;
+}
+
+.list-group-item h5 {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.list-group-item p {
+  font-size: 1rem;
+}

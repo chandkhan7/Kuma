@@ -1028,3 +1028,134 @@ body.blue {
   font-weight: bold;
   border: 2px solid #007BFF;  /* Blue border for active button */
 }
+/* Add at the end of your App.css or in a relevant section */
+
+/* Fingerprint Modal Styling */
+.fingerprint-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.fingerprint-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+}
+
+.fingerprint-modal-content button {
+  margin-top: 10px;
+}
+/* App.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.App {
+  text-align: center;
+}
+
+.navbar {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+.bottom-navbar {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+/* src/styles/App.css */
+.room-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.student-card {
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.student-card .student-info p {
+  margin: 5px 0;
+}
+
+.student-card p strong {
+  color: #333;
+}
+/* src/styles/App.css */
+.room-container {
+  padding: 20px;
+  text-align: center;
+  background-color: #f8f9fa; /* Light background to match list group look */
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.student-card {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0; /* Subtle border to mimic the list group item borders */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.student-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover effect */
+}
+
+.student-card .student-info p {
+  margin: 5px 0;
+}
+
+.student-card p strong {
+  color: #333;
+}
+
+/* Styling for active student card (to mimic 'active' list group item) */
+.student-card.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Add a hover effect for active state */
+.student-card.active:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}

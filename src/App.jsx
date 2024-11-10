@@ -1,27 +1,31 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './components/home/Home';
 import Profile from './components/profile/Profile';
 import Signup from './components/Signup';
 import Login from './components/Login';
-import FingerprintAuthentication from './components/FingerprintAuthentication'; // Import the Fingerprint component
-
 import ForgotPassword from './components/ForgotPassword';
-import { FaUserCircle, FaHome, FaPlusCircle, FaCommentAlt, FaFingerprint } from 'react-icons/fa';
-import './styles/App.css';
-import Settings from './components/Settings';
+import FingerprintAuthentication from './components/FingerprintAuthentication';
+import Attendance from './components/Attendance';
 import Messenger from './components/Messenger';
 import ChatRoom from './components/Chatroom/ChatRoom';
+import StudentDetails from './components/StudentDetails/StudentDetails';
+import Settings from './components/Settings';
+import YearSelection from './components/YearSelection'; // Import YearSelection component
+import Room from './components/Room';  // Import Room component
+import { FaUserCircle, FaHome, FaPlusCircle, FaCommentAlt, FaFingerprint, FaClipboardList } from 'react-icons/fa'; 
+import './styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [themeColor, setThemeColor] = useState(localStorage.getItem('themeColor') || 'dark'); // Default theme is dark
+  const [themeColor, setThemeColor] = useState(localStorage.getItem('themeColor') || 'dark');
   const [posts, setPosts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('user'));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [caption, setCaption] = useState('');
-  const [isFingerprintModalOpen, setIsFingerprintModalOpen] = useState(false); // State for Fingerprint Modal
+  const [isFingerprintModalOpen, setIsFingerprintModalOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -29,11 +33,9 @@ function App() {
     document.body.className = themeColor;
     localStorage.setItem('themeColor', themeColor); // Store theme in localStorage
 
-    // Load posts from localStorage
+    // Load posts and login status from localStorage
     const savedPosts = JSON.parse(localStorage.getItem('posts')) || [];
     setPosts(savedPosts);
-
-    // Load login status from localStorage
     const loggedInStatus = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
     setIsLoggedIn(loggedInStatus);
   }, [themeColor]);
@@ -76,12 +78,11 @@ function App() {
     setCaption('');
   };
 
-  const isNavbarVisible = location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/forgot-password';
-
-  // Toggle fingerprint authentication modal
   const handleFingerprintClick = () => {
     setIsFingerprintModalOpen(!isFingerprintModalOpen);
   };
+
+  const isNavbarVisible = location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/forgot-password';
 
   return (
     <div className="App">
@@ -89,6 +90,9 @@ function App() {
         <div className="bottom-navbar d-flex justify-content-around align-items-center fixed-bottom bg-dark py-2 border-top border-secondary">
           <Link to="/" className="nav-item text-white">
             <FaHome size={30} />
+          </Link>
+          <Link to="/year-selection" className="nav-item text-white">
+            <FaClipboardList size={30} />
           </Link>
           <label className="nav-item text-white">
             <FaPlusCircle size={30} />
@@ -100,16 +104,14 @@ function App() {
           <Link to="/messenger" className="nav-item text-white">
             <FaCommentAlt size={30} />
           </Link>
-
-          {/* Add Fingerprint Authentication icon */}
           <div className="nav-item text-white" onClick={handleFingerprintClick}>
             <FaFingerprint size={30} />
           </div>
-
-          <Settings isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} themeColor={themeColor} setThemeColor={setThemeColor} />
+          <Settings />
         </div>
       )}
 
+      {/* Post Confirmation Modal */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content zoom-in">
@@ -136,25 +138,23 @@ function App() {
           <div className="fingerprint-modal-content">
             <h3>Verify Your Attendance</h3>
             <FingerprintAuthentication />
-            <button
-              className="btn btn-secondary"
-              onClick={() => setIsFingerprintModalOpen(false)}
-            >
-              Close
-            </button>
+            <button className="btn btn-secondary" onClick={() => setIsFingerprintModalOpen(false)}>Close</button>
           </div>
         </div>
       )}
 
-      {/* Define Routes */}
       <Routes>
         <Route path="/" element={<Home posts={posts} setPosts={setPosts} />} />
         <Route path="/profile" element={<Profile posts={posts} />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/messenger" element={<Messenger />} />
         <Route path="/chat" element={<ChatRoom />} />
+        <Route path="/student-details" element={<StudentDetails />} />
+        <Route path="/attendance" element={<Attendance />} />
+        <Route path="/year-selection" element={<YearSelection />} /> {/* New Route for Year Selection */}
+        <Route path="/room/:groupName" element={<Room />} /> {/* Room route */}
       </Routes>
     </div>
   );

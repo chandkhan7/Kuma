@@ -1,3 +1,5 @@
+// src/components/Signup.jsx
+
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './../styles/signup/Signup.css';  // Import the custom CSS
@@ -7,6 +9,7 @@ const Signup = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
+    enrollmentNumber: '',
     password: '',
   });
 
@@ -25,17 +28,19 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if username or email already exists in localStorage
+    // Check if enrollment number or email already exists in localStorage
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const existingUser = users.find(user => user.username === formData.username || user.email === formData.email);
+    const existingUser = users.find(
+      user => user.enrollmentNumber === formData.enrollmentNumber || user.email === formData.email
+    );
 
     if (existingUser) {
-      setError('Username or Email already taken');
+      setError('Enrollment number or email already taken');
     } else {
       // Add the new user to the localStorage
       users.push(formData);
       localStorage.setItem('users', JSON.stringify(users));
-      setSuccess('Signup Successful! You can now log in.');
+      setSuccess('Signup successful! You can now log in.');
 
       // Redirect to Login page after successful signup
       setTimeout(() => {
@@ -46,6 +51,7 @@ const Signup = () => {
       setFormData({
         username: '',
         email: '',
+        enrollmentNumber: '',
         password: '',
       });
     }
@@ -74,13 +80,25 @@ const Signup = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email address</label>
+                  <label htmlFor="email" className="form-label">Email Address</label>
                   <input
                     type="email"
                     className="form-control"
                     id="email"
                     name="email"
                     value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="enrollmentNumber" className="form-label">Enrollment Number</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="enrollmentNumber"
+                    name="enrollmentNumber"
+                    value={formData.enrollmentNumber}
                     onChange={handleChange}
                     required
                   />
