@@ -1,7 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Messenger/Messenger.css';
-import { FaPaperPlane, FaCamera, FaMicrophone } from 'react-icons/fa'; // Use FaCamera for both photo and video
+import { FaPaperPlane, FaCamera, FaMicrophone, FaSpinner } from 'react-icons/fa'; // For media icons and loading spinner
 import { ReactMediaRecorder } from 'react-media-recorder'; // For voice recording
+import io from 'socket.io-client';
+
+// Connect to the socket server
+const socket = io("http://localhost:5000"); // Replace with your server URL
 
 function Messenger() {
   const [messages, setMessages] = useState([]);
@@ -14,24 +18,60 @@ function Messenger() {
   const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 }); // Position for context menu
   const [selectedMessageIndex, setSelectedMessageIndex] = useState(null); // Track selected message for options
   const contextMenuRef = useRef(null); // Reference to the context menu for detecting outside clicks
+  const [isSending, setIsSending] = useState(false); // Prevent multiple message sends
 
-  // Function to send message
+  // Listen for messages from the server
+  useEffect(() => {
+    socket.on('receive_message', (data) => {
+      console.log('Message received:', data.message);
+      if (data.sender !== 'You') {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { text: data.message, sender: 'Other', status: 'received' }, // Update status and sender
+        ]);
+      }
+    });
+
+    // Socket connection and disconnection management
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Disconnected from server');
+    });
+
+    return () => {
+      socket.off('receive_message');
+      socket.off('connect');
+      socket.off('disconnect');
+    };
+  }, [messages]);
+
+  // Send message function with preventing multiple sends
   const handleSendMessage = () => {
-    if (message.trim()) {
-      setMessages([...messages, { text: message, sender: 'You' }]);
+    if (message.trim() && !isSending) {
+      setIsSending(true);
+      socket.emit('send_message', message); // Emit message to the server
+      setMessages([...messages, { text: message, sender: 'You', status: 'sending' }]);
       setMessage('');
       inputRef.current.focus(); // Keep input focused to prevent keyboard from closing
+
+      setTimeout(() => {
+        setMessages((prevMessages) =>
+          prevMessages.map((msg) => (msg.status === 'sending' ? { ...msg, status: 'sent' } : msg))
+        );
+        setIsSending(false);
+      }, 1000); // Simulate sending delay
     }
   };
 
-  // Handle pressing Enter to send message
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && message.trim()) {
       handleSendMessage();
     }
   };
 
-  // Handle sending media files (Image, Video)
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -42,12 +82,12 @@ function Messenger() {
           sender: 'You',
           file: URL.createObjectURL(file),
           fileType: fileType,
+          status: 'sending',
         },
       ]);
     }
   };
 
-  // Handle starting and stopping voice recording with mouse events
   const handleStartRecording = (startRecording) => {
     setIsRecording(true);
     startRecording(); // Start recording on mic icon press
@@ -59,23 +99,25 @@ function Messenger() {
     setVoiceBlobUrl(mediaBlobUrl); // Save the audio blob URL for playback
   };
 
-  // Function to send voice message
   const handleSendVoiceMessage = () => {
     if (voiceBlobUrl) {
       setMessages([
         ...messages,
-        { sender: 'You', file: voiceBlobUrl, fileType: 'Voice' },
+        { sender: 'You', file: voiceBlobUrl, fileType: 'Voice', status: 'sending' },
       ]);
       setVoiceBlobUrl(null); // Reset after sending the message
+      setTimeout(() => {
+        setMessages((prevMessages) =>
+          prevMessages.map((msg) => (msg.status === 'sending' ? { ...msg, status: 'sent' } : msg))
+        );
+      }, 1000); // Simulate sending delay
     }
   };
 
-  // Auto-scroll to the bottom when a new message is added
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Close context menu if user clicks anywhere outside of it
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (contextMenuRef.current && !contextMenuRef.current.contains(e.target)) {
@@ -89,90 +131,69 @@ function Messenger() {
     };
   }, []);
 
-  // Function to handle long press or right-click on a message
   const handleMessagePress = (index, e) => {
-    e.preventDefault(); // Prevent default context menu
+    e.preventDefault();
     setSelectedMessageIndex(index);
-
-    // Calculate the position for the context menu to appear above the message
     const messageElement = e.target;
-    const { top, left } = messageElement.getBoundingClientRect(); // Get position of the message element
-
-    setContextMenuPosition({ top: top - 40, left: left }); // Position 40px above the message
-    setShowContextMenu(true); // Show context menu
+    const { top, left } = messageElement.getBoundingClientRect();
+    setContextMenuPosition({ top: top - 40, left: left });
+    setShowContextMenu(true);
   };
 
-  // Function to copy the message text to clipboard
   const handleCopyMessage = () => {
     const messageText = messages[selectedMessageIndex].text;
-    navigator.clipboard.writeText(messageText); // Copy the message text to clipboard
+    navigator.clipboard.writeText(messageText);
     setShowContextMenu(false);
   };
 
-  // Function to delete the message
   const handleDeleteMessage = () => {
-    setMessages(messages.filter((_, index) => index !== selectedMessageIndex)); // Remove the selected message from the list
-    setShowContextMenu(false); // Close the context menu
+    setMessages(messages.filter((_, index) => index !== selectedMessageIndex));
+    setShowContextMenu(false);
   };
 
-  // Function to cancel delete action
   const handleCancelDelete = () => {
-    setShowContextMenu(false); // Simply close the context menu
+    setShowContextMenu(false);
   };
 
   return (
     <div className="messenger">
-      <h3>Messenger</h3>
-
+      <h3>MoonTalk</h3>
       <div className="messages-container">
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`message-bubble ${msg.sender === 'You' ? 'sent' : 'received'}`}
-            onContextMenu={(e) => handleMessagePress(index, e)} // Detect right-click or long press
+            className={`message-bubble ${msg.sender === 'You' ? 'sent' : 'received'} ${msg.status === 'sending' ? 'sending' : ''}`}
+            onContextMenu={(e) => handleMessagePress(index, e)}
           >
-            <strong>{msg.sender}: </strong>
-            {msg.text}
-
-            {/* Conditional rendering for file type */}
+            <strong>{msg.text}</strong>
             {msg.file && (
               <div>
-                {/* Display image if it's an image file */}
-                {msg.fileType === 'Image' && (
-                  <img src={msg.file} alt="Uploaded" className="message-image" />
-                )}
-
-                {/* Display video if it's a video file */}
+                {msg.fileType === 'Image' && <img src={msg.file} alt="Uploaded" className="message-image" />}
                 {msg.fileType === 'Video' && <video src={msg.file} controls width="200" />}
-
-                {/* Display voice note if it's a voice note */}
-                {msg.fileType === 'Voice' && (
-                  <audio src={msg.file} controls />
-                )}
+                {msg.fileType === 'Voice' && <audio src={msg.file} controls />}
               </div>
             )}
+            {msg.status === 'sending' && <FaSpinner className="spinner" />}
           </div>
         ))}
-        {/* Scroll to bottom */}
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Context Menu */}
       {showContextMenu && (
         <div
           className="context-menu"
           style={{
-            top: `${contextMenuPosition.top}px`, // Position context menu above the message
-            left: `${contextMenuPosition.left}px`, // Position context menu based on the message's left position
-            zIndex: 1000, // Ensure context menu is on top
-            position: 'absolute', // Absolutely position the menu
+            top: `${contextMenuPosition.top}px`,
+            left: `${contextMenuPosition.left}px`,
+            zIndex: 1000,
+            position: 'absolute',
           }}
-          ref={contextMenuRef} // Attach reference to the context menu
+          ref={contextMenuRef}
         >
           <ul className="list-unstyled mb-0">
-            <li className="p-2" onClick={handleDeleteMessage}>Delete</li> {/* Delete option first */}
-            <li className="p-2" onClick={handleCopyMessage}>Copy</li> {/* Copy option second */}
-            <li className="p-2" onClick={handleCancelDelete}>Cancel</li> {/* Cancel option last */}
+            <li className="p-2" onClick={handleDeleteMessage}>Delete</li>
+            <li className="p-2" onClick={handleCopyMessage}>Copy</li>
+            <li className="p-2" onClick={handleCancelDelete}>Cancel</li>
           </ul>
         </div>
       )}
@@ -186,41 +207,36 @@ function Messenger() {
           placeholder="Type a message..."
           className="message-input"
           ref={inputRef}
+          aria-label="Type a message"
         />
-        <FaPaperPlane size={25} onClick={handleSendMessage} className="send-icon" style={{ cursor: 'pointer', color: '#007bff' }} />
-
-        {/* Single File Upload Button for Photos and Videos */}
-        <label htmlFor="file-upload" style={{ cursor: 'pointer' }}>
-          <FaCamera size={25} className="media-icon" style={{ color: '#007bff' }} />
+        <FaPaperPlane size={25} onClick={handleSendMessage} className="send-icon" style={{ cursor: 'pointer' }} />
+        <label htmlFor="file-upload" style={{ cursor: 'pointer' }} aria-label="Upload media">
+          <FaCamera size={25} className="media-icon" />
         </label>
         <input
           type="file"
           id="file-upload"
           style={{ display: 'none' }}
           onChange={handleFileUpload}
-          accept="image/*,video/*" // Allow both images and videos
+          accept="image/*,video/*"
+          aria-label="Choose media file"
         />
 
-        {/* Voice Note Button */}
         <ReactMediaRecorder
           render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
-            <div>
+            <>
               <FaMicrophone
                 size={25}
                 className="media-icon"
-                style={{ cursor: 'pointer', color: '#007bff' }}
-                onMouseDown={() => handleStartRecording(startRecording)} // Start recording on mic press
-                onMouseUp={() => handleStopRecording(stopRecording, mediaBlobUrl)} // Stop recording and show voice message when released
+                onMouseDown={() => handleStartRecording(startRecording)}
+                onMouseUp={() => handleStopRecording(stopRecording, mediaBlobUrl)}
+                onMouseLeave={() => handleStopRecording(stopRecording, mediaBlobUrl)}
+                aria-label="Record voice message"
               />
-              {isRecording && <span>Recording...</span>} {/* Show "Recording..." when active */}
-              {/* Display recorded voice for playback */}
-              {voiceBlobUrl && !isRecording && (
-                <div>
-                  <audio src={voiceBlobUrl} controls />
-                  <button className="vt-btn" onClick={handleSendVoiceMessage}>Send Voice Note</button>
-                </div>
+              {voiceBlobUrl && (
+                <button onClick={handleSendVoiceMessage} aria-label="Send voice message">Send</button>
               )}
-            </div>
+            </>
           )}
         />
       </div>

@@ -869,3 +869,175 @@ video, audio {
   color: black;
 }
 
+.messenger {
+  background-color: #222;
+  color: #fff;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.message-bubble {
+  background-color: #444;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.sent {
+  background-color: #bd1010;
+  text-align: right;
+}
+
+.received {
+  background-color: #555;
+}
+
+.message-input {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  width: 80%;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.media-icon, .send-icon {
+  color: #bd1010;
+}
+
+.context-menu {
+  background-color: #333;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.context-menu ul li {
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.context-menu ul li:hover {
+  background-color: #444;
+}
+
+.vt-btn {
+  background-color: #bd1010;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.vt-btn:hover {
+  background-color: #9a0c0c;
+}
+
+.messenger {
+  background-color: #222;
+  color: #fff;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.message-bubble {
+  background-color: #444;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.sent {
+  background-color: #bd1010;
+  text-align: right;
+}
+
+.received {
+  background-color: #555;
+}
+
+.message-input {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  width: 80%;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.media-icon, .send-icon {
+  color: #bd1010;
+}
+
+.send-icon {
+  color: #bd1010 !important; /* Force color change with !important */
+}
+
+.context-menu {
+  background-color: #413e3e;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.context-menu ul li {
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.context-menu ul li:hover {
+  background-color: #444;
+}
+
+.vt-btn {
+  background-color: #bd1010;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.vt-btn:hover {
+  background-color: #9a0c0c;
+}
+.message-input {
+  flex: 1;
+  padding: 8px;
+  margin-right: 8px;
+  border-radius: 15px;
+  border: 1px solid #8f8181; /* Initial border color */
+  font-size: 0.9rem;
+  max-width: 70%; /* Shorter input field */
+  outline: none;
+}
+
+/* Focused input will maintain the same border color */
+.message-input:focus {
+  border: 1px solid #8f8181; /* Ensure the same border color when focused */
+}

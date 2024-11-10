@@ -21,6 +21,9 @@
 
   <!-- Title of the page -->
   <title>React App</title>
+  
+  <!-- Include Socket.io client library -->
+  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
 </head>
 
 <body>
@@ -29,6 +32,33 @@
   
   <!-- The root element where React renders the app -->
   <div id="root"></div>
+
+  <!-- Chat Section for Socket.io Test -->
+  <div id="chat"></div>
+  <input type="text" id="message" placeholder="Type a message" />
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    // Initialize socket connection
+    const socket = io("http://localhost:5000");
+
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+
+    socket.on('receive_message', (data) => {
+      const chatDiv = document.getElementById('chat');
+      const newMessage = document.createElement('div');
+      newMessage.textContent = `${data.sender}: ${data.message}`;
+      chatDiv.appendChild(newMessage);
+    });
+
+    // Function to send message
+    function sendMessage() {
+      const message = document.getElementById('message').value;
+      socket.emit('send_message', message);
+    }
+  </script>
 </body>
 
 </html>

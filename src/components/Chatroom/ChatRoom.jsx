@@ -10,7 +10,7 @@ function Messenger() {
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      setMessages([...messages, { text: message, sender: 'You' }]);
+    
       setMessage('');
       // Keep the input focused after sending a message
       inputRef.current.focus();

@@ -1,12 +1,15 @@
+// src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { Provider } from 'react-redux';
 import App from './App';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import store from './redux/store'; // Import the store you created
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import './index.css'; // Import your custom CSS
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>  {/* Wrap your App component with Provider */}
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
