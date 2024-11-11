@@ -1,16 +1,21 @@
 const express = require('express');
+const Fido2Lib = require('fido2-lib');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const cors = require('cors');  // Import cors package
+const cors = require('cors'); // CORS for cross-origin requests
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());  // Enable CORS for all origins (you can customize it if needed)
+app.use(cors()); // Enable CORS for all origins (you can customize it if needed)
 
-const users = [];  // In-memory store for users (replace with a real database)
+const port = 5000; // Change port to 5000
+const fido2 = new Fido2Lib();
+
+// Mock data for users and attendance (replace with real DB)
+const users = [];
 const RESET_PASSWORD_EXPIRY = 3600000; // 1 hour expiration time for reset token
 
 // Email Transporter configuration
@@ -21,51 +26,60 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
   tls: {
-    rejectUnauthorized: false,  // To avoid SSL/TLS issues
+    rejectUnauthorized: false, // To avoid SSL/TLS issues
   },
 });
-// Backend - Express Route (Node.js)
-app.post('/approve-attendance', (req, res) => {
-  const { userId, ipAddress, status } = req.body;
 
-  // Update the database with the approval status
-  Attendance.updateOne(
-    { userId: userId, ipAddress: ipAddress },
-    { $set: { isApproved: status } },
-    (err, result) => {
-      if (err) {
-        return res.status(500).json({ message: 'Error updating approval status' });
-      }
-      res.status(200).json({ message: 'IP Approval status updated successfully' });
-    }
-  );
-});
-// Backend - Express Route (Node.js)
-app.post('/mark-attendance', (req, res) => {
-  const { userId, fingerprintData } = req.body;
+// Route to generate WebAuthn challenge
+app.post('/generate-challenge', async (req, res) => {
+  try {
+    const userId = req.body.userId || 'user123'; // Replace with actual user data
+    const challenge = await fido2.attestationOptions();
 
-  // Verify fingerprint (you'll integrate with an SDK or API for this)
-  const isVerified = verifyFingerprint(fingerprintData);  // Example function
+    challenge.user = {
+      id: new TextEncoder().encode(userId), // Encode the user ID as bytes
+      name: "user@example.com", // User's email or username
+      displayName: "User Name",
+    };
 
-  if (isVerified) {
-    // Update the attendance record in the database
-    Attendance.updateOne(
-      { userId: userId },
-      { $set: { attendanceMarked: true } },
-      (err, result) => {
-        if (err) {
-          return res.status(500).json({ message: 'Error marking attendance' });
-        }
-        res.status(200).json({ message: 'Attendance marked successfully' });
-      }
-    );
-  } else {
-    res.status(401).json({ message: 'Fingerprint verification failed' });
+    res.json(challenge); // Send the challenge to the frontend
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to generate challenge' });
   }
 });
 
+// Route to verify fingerprint data
+app.post('/verify-fingerprint', async (req, res) => {
+  const { fingerprintData } = req.body;
 
-// Send password reset link
+  // Log fingerprint data for debugging
+  console.log('Received fingerprint data:', fingerprintData);
+
+  // Replace with actual WebAuthn signature verification logic
+  const isVerified = verifyFingerprint(fingerprintData);
+
+  if (isVerified) {
+    res.status(200).json({ success: true });
+  } else {
+    res.status(401).json({ success: false, message: 'Fingerprint verification failed' });
+  }
+});
+
+// Function to mock fingerprint verification (replace with real WebAuthn verification)
+function verifyFingerprint(fingerprintData) {
+  // For now, this is just a placeholder, you would use WebAuthn's API to verify the fingerprint
+  // In a real-world case, the fingerprint data is signed using a private key and we need to verify it using the public key
+  const storedFingerprintData = getStoredFingerprintData(); // Get stored fingerprint data from DB
+
+  return storedFingerprintData === fingerprintData; // Mock comparison
+}
+
+function getStoredFingerprintData() {
+  // Mock: In a real application, this would be retrieved from a database
+  return "sample-stored-fingerprint-data"; // Placeholder for mock data
+}
+
+// Mock route to send reset password link (useful for demo purposes)
 app.post('/api/send-reset-link', (req, res) => {
   const { email } = req.body;
   const user = users.find(user => user.email === email);
@@ -77,12 +91,12 @@ app.post('/api/send-reset-link', (req, res) => {
   // Generate reset token and expiration time
   const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-  // Store the token in the user record (in a real app, store it in the database)
+  // Store the token in the user record (in a real app, store it in the DB)
   user.resetToken = token;
   user.resetTokenExpiry = Date.now() + RESET_PASSWORD_EXPIRY;
 
   // Send reset link via email
-  const resetLink = `http://localhost:3000/reset-password/${token}`;  // Adjust the URL based on your frontend
+  const resetLink = `http://localhost:5000/reset-password/${token}`;  // Adjust the URL based on your frontend
   const mailOptions = {
     to: email,
     subject: 'Password Reset',
@@ -91,38 +105,15 @@ app.post('/api/send-reset-link', (req, res) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.error('Error sending email:', error);  // Log the error
+      console.error('Error sending email:', error);
       return res.status(500).send({ message: 'Error sending reset link' });
     }
-    console.log('Email sent: ' + info.response);  // Log email info on success
+    console.log('Email sent: ' + info.response);
     res.status(200).send({ message: 'Password reset link sent' });
   });
 });
 
-// Reset password
-app.post('/api/reset-password/:token', (req, res) => {
-  const { token } = req.params;
-  const { password } = req.body;
-
-  // Verify token
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(400).send('Invalid or expired token');
-    }
-
-    const user = users.find(user => user.email === decoded.email);
-
-    if (!user || user.resetToken !== token || user.resetTokenExpiry < Date.now()) {
-      return res.status(400).send('Token has expired or is invalid');
-    }
-
-    // Update password (in a real app, hash the password before saving it)
-    user.password = password;
-    user.resetToken = undefined; // Clear the reset token after successful reset
-
-    res.status(200).send('Password has been reset successfully');
-  });
-});
-
 // Start the server
-app.listen(4000, () => console.log('Server running on port 4000'));
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});

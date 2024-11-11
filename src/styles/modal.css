@@ -1,0 +1,34 @@
+/* src/styles/modal.css */
+.modal-content {
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.profile-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.profile-container h2 {
+  font-size: 2rem;
+}
+
+.profile-container .btn-light {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+}
+
+.profile-container .btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.profile-container .alert {
+  margin-top: 10px;
+}
